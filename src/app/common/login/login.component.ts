@@ -5,10 +5,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  email = '';
+  user = '';
   password = '';
 
   constructor(private authService: AuthenticationService) {
@@ -16,8 +17,7 @@ export class LoginComponent implements OnInit {
   }
   Login() {
     console.log("you are logging in")
-    this.authService.login(this.email, this.password).subscribe(res => {
-      console.log('hola')
+    this.authService.login(this.user, this.password).subscribe(res => {
     })
 
   }
