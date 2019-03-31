@@ -1,15 +1,17 @@
-import { User } from './../model/User';
+import { User } from './../model/Usuario';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, config } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+  header= new HttpHeaders();
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private router:Router) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -19,19 +21,40 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>(`http://localhost:8090/login`, { "usuario": username, "contrasena": password })
-      .pipe(map(user => {
-        console.log(user);
+    return this.http.post<any>(`http://localhost:8090/login`, { "usuario": username, "contrasena": password }).subscribe(res => {
+    },error => {
+      if (error.status==200) {
+        let jwt = error.error.text;
+      console.log(jwt);
+        let jwtData = jwt.split('.')[1]
+        let decodedJwtJsonData = window.atob(jwtData)
+        let decodedJwtData = JSON.parse(decodedJwtJsonData)
 
-        // login successful if there's a jwt token in the response
-        if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-        }
-        console.log(user);
-        return user;
-      }));
+
+        console.log('jwtData: ' + jwtData)
+        console.log('decodedJwtJsonData: ' + decodedJwtJsonData)
+        console.log('decodedJwtData: ' + decodedJwtData.sub)
+        //aqui le mandamos el token y el usuario para que lo guarde
+        this.saveuser(decodedJwtData.sub,jwt);
+        this.router.navigate(['inicio']);
+        
+
+        
+      }
+      else{console.log(error)}
+      
+        
+    })
+
+  };
+  
+
+  saveuser(username:string, token:string){
+    this.header.append("Content-Type","application/json");
+    return this.http.get<any>(`http://localhost:8090/v1/usuario?nombre=${username}`,{headers: this.header.append("Authorization","Bearer "+ token) }).subscribe(res =>{
+      sessionStorage.setItem("Usuario",JSON.stringify(res));
+      console.log("usuario guardado")
+    });
   }
 
   logout() {

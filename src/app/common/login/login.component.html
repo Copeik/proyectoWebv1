@@ -9,11 +9,11 @@
     </div>
 
     <!-- Login Form -->
-    <form>
+    
       <input type="text" [(ngModel)]="user" id="login" class="fadeIn second" name="login" placeholder="Usuario">
       <input type="text" [(ngModel)]="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña">
-      <input type="submit" class="fadeIn fourth" value="Log In">
-    </form>
+      <input type="button" class="fadeIn fourth" value="Log In" (click)="Login()">
+    
 
     <!-- Remind Passowrd -->
     <div id="formFooter">

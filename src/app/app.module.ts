@@ -8,23 +8,23 @@ import { HomeComponent } from './home/home.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { InicioComponent } from './inicio/inicio.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    InicioComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', redirectTo: '/', pathMatch: 'full' },
-      { path: 'login', component: LoginComponent },
-      { path: 'profile', component: HomeComponent }
-    ]),
+    AppRoutingModule,
     HttpClientModule
   ],
   providers: [],
