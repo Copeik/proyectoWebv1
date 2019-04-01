@@ -22,8 +22,10 @@ export class AuthenticationService {
 
   login(username: string, password: string) {
     return this.http.post<any>(`http://localhost:8090/login`, { "usuario": username, "contrasena": password }).subscribe(res => {
+      console.log(res);
     },error => {
       if (error.status==200) {
+        console.log(error);
         let jwt = error.error.text;
       console.log(jwt);
         let jwtData = jwt.split('.')[1]
