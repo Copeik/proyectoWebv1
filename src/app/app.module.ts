@@ -1,7 +1,7 @@
+import { AppRoutingModule } from './app-route';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './common/login/login.component';
 import { HomeComponent } from './Components/home/home.component';
@@ -15,6 +15,8 @@ import { RegistroUsuariosComponent } from './common/registro-usuarios/registro-u
 import { RegistroArticulosComponent } from './common/registro-articulos/registro-articulos.component';
 import { CarritoComponent } from './common/carrito/carrito.component';
 import { PedidosComponent } from './common/pedidos/pedidos.component';
+import { PedidoComponent } from './common/pedido/pedido.component';
+
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { PedidosComponent } from './common/pedidos/pedidos.component';
     RegistroUsuariosComponent,
     RegistroArticulosComponent,
     CarritoComponent,
-    PedidosComponent
+    PedidosComponent,
+    PedidoComponent
   ],
   imports: [
     BrowserModule,
