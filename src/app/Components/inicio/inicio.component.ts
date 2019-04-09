@@ -30,7 +30,7 @@ export class InicioComponent implements OnInit {
         $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
     
       }
-    });-
+    });
   }
 
 }

@@ -15,6 +15,9 @@ import { RegistroUsuariosComponent } from './common/registro-usuarios/registro-u
 import { RegistroArticulosComponent } from './common/registro-articulos/registro-articulos.component';
 import { CarritoComponent } from './common/carrito/carrito.component';
 import { PedidosComponent } from './common/pedidos/pedidos.component';
+import {TableModule} from 'primeng/table';
+import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
+import {MenuItem} from 'primeng/api';                 //api
 
 
 @NgModule({
@@ -31,7 +34,9 @@ import { PedidosComponent } from './common/pedidos/pedidos.component';
     PedidosComponent
   ],
   imports: [
+    AccordionModule,
     BrowserModule,
+    TableModule,
     RouterModule,
     FormsModule,
     AppRoutingModule,
