@@ -1,7 +1,7 @@
+import { AppRoutingModule } from './app-route';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './common/login/login.component';
 import { HomeComponent } from './Components/home/home.component';
@@ -18,6 +18,8 @@ import { PedidosComponent } from './common/pedidos/pedidos.component';
 import {TableModule} from 'primeng/table';
 import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
 import {MenuItem} from 'primeng/api';                 //api
+import { PedidoComponent } from './common/pedido/pedido.component';
+
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import {MenuItem} from 'primeng/api';                 //api
     RegistroUsuariosComponent,
     RegistroArticulosComponent,
     CarritoComponent,
-    PedidosComponent
+    PedidosComponent,
+    PedidoComponent
   ],
   imports: [
     AccordionModule,
