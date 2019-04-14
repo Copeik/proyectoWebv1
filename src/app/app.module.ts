@@ -22,6 +22,7 @@ import { PedidoComponent } from './common/pedido/pedido.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

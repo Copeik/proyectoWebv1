@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticulosService } from 'src/app/services/articulos.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -7,11 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CatalogoComponent implements OnInit {
 
-  items=[1,2,3,4,5,6,7,8,9,10,11,12]
+  items:any;
+  page:number=0;
+  pages:Array<number>;
 
-  constructor() { }
+  constructor(private articulosService:ArticulosService) { }
 
   ngOnInit() {
+    this.getArticulos();
   }
 
+  getArticulos(){
+    this.articulosService.getListaArticulos(this.page).subscribe(res => {
+    this.items=res;
+    this.pages = new Array(res['totalPages']);
+    });
+  }
+  setPage(page){
+    this.page=page;
+    this.getArticulos();
+  }
 }

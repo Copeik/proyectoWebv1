@@ -11,12 +11,33 @@
   <div class="row col-9"><div *ngFor="let item of items" class="card" style="margin:auto; margin-bottom:1%; width: 18rem;">
       <img class="card-img-top" src="https://juststickers.in/wp-content/uploads/2016/07/hand-okay.png" alt="Card image cap">
       <div class="card-body">
-        <h5 class="card-title">{{item}}</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <h5 class="card-title">{{item.nombre}}</h5>
+        <p class="card-text">{{item.descripcion}}</p>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Ver mas</button><button href="#" class="btn btn-success">Añadir al carrito</button>
       </div>
     </div></div>
-  
+    <div class="col-7"></div>
+    <div class="col-4" ><nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" (click)="setPage(0)">1
+           
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" (click)="setPage(1)">2
+           
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" (click)="setPage(2)">3
+           
+          </a>
+        </li>
+      </ul>
+    </nav></div>
+    <div class="col-1"></div>
+    
   </div></div>
 
 
@@ -41,3 +62,5 @@
         </div>
       </div>
     </div>
+    
+    
