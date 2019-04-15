@@ -1,7 +1,18 @@
-.carousel-inner .active.left { left: -33%; }
-.carousel-inner .next        { left:  33%; }
-.carousel-inner .prev        { left: -33%; }
-.carousel-control.left,.carousel-control.right {background-image:none;}
-.item:not(.prev) {visibility: visible;}
-.item.right:not(.prev) {visibility: hidden;}
-.rightest{ visibility: visible;}
+.blog .carousel-indicators {
+	left: 0;
+	top: auto;
+    bottom: -40px;
+
+}
+
+/* The colour of the indicators */
+.blog .carousel-indicators li {
+    background: #a3a3a3;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+}
+
+.blog .carousel-indicators .active {
+background: #707070;
+}

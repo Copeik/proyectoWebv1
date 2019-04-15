@@ -13,7 +13,9 @@ export class InicioComponent implements OnInit {
 
   ngOnInit() {
     //asi volvemos a el login si nos estamos logeados
-    this.auth.getuser();
+    setTimeout(()=>{
+      this.auth.getuser();
+    },500)
   }
 
 

@@ -6,10 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+
+  
+  CerrarSesion(){
+    sessionStorage.removeItem("Usuario");
+    setTimeout(() => {
+      window.location.reload();
+    }, 0);
   }
 
 }

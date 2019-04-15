@@ -39,6 +39,9 @@ export class AuthenticationService {
         //aqui le mandamos el token y el usuario para que lo guarde
         this.saveuser(decodedJwtData.sub,jwt);
         this.router.navigate(['inicio']);
+        setTimeout(() => {
+          window.location.reload();
+        }, 0);
         
 
         
@@ -53,7 +56,7 @@ export class AuthenticationService {
 
   saveuser(username:string, token:string){
     this.header.append("Content-Type","application/json");
-    return this.http.get<any>(`http://localhost:8090/v1/usuariobody?nombre=${username}`,{headers: this.header.append("Authorization","Bearer "+ token) }).subscribe(res =>{
+    return this.http.get<any>(`http://localhost:8090/v1/usuario?nombre=${username}`,{headers: this.header.append("Authorization","Bearer "+ token) }).subscribe(res =>{
       sessionStorage.setItem("Usuario",JSON.stringify(res));
       console.log("usuario guardado")
     });
