@@ -4,6 +4,7 @@ export class Articulos {
     nombre: string;
     descripcion: string;
     precio_articulo: any;
+    imagen:string;
     codigo_tipo: {
         codigo_t: number;
         nombre: string;

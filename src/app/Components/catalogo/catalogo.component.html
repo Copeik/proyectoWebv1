@@ -1,4 +1,7 @@
 <div class="container-fluid" style="background-color: #b4e9e2">
+  <div class="row" > <div class="col-12"><button *ngIf="user.id_rol" style="float: right; margin: auto" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Nuevo articulo
+    </button></div></div> 
   <div class="row">
   <div class="col-3">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -9,7 +12,7 @@
     </div>
   </div>
   <div class="row col-9"><div *ngFor="let item of items" class="card" style="margin:auto; margin-bottom:1%; width: 18rem;">
-      <img class="card-img-top" src="https://juststickers.in/wp-content/uploads/2016/07/hand-okay.png" alt="Card image cap">
+      <img class="card-img-top" [src]="_sanitizer.bypassSecurityTrustResourceUrl(item.imagen)" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{item.nombre}}</h5>
         <p class="card-text">{{item.descripcion}}</p>
@@ -47,17 +50,61 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Añadir articulo</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            ...
+            <form #formArticulo="ngForm">
+                <div class="alert alert-danger" role="alert" *ngIf="isError">
+                    Rellene los campos marcados con * , son los campos obligatorios
+                  </div>
+              <div class="form-group">
+                <label for="nombreArticulo">Nombre articulo *</label>
+                <input type="text" class="form-control" id="nombreArticulo" aria-describedby="artivulo" placeholder="Ej:Petunias" required>
+                <small class="form-text text-muted">Este es el nombre que veran los clientes cuando accedan a este articulo</small>
+              </div>
+              <div class="form-group">
+                <label for="descripcionArticulo">Descripción</label>
+                <input type="text" class="form-control" id="descripcionArticulo" placeholder="Ej: Las petunias son debiles...">
+              </div>
+              <div class="form-group">
+                <label for="precioArticulo">Precio *</label>
+                <input type="number" class="form-control" id="precioArticulo" placeholder="Ej: Las petunias son debiles..." required>
+              </div>
+              <div class="form-group">
+                <label for="tipoArticulo">Tipo</label>
+                <select id="tipoArticulo" class="custom-select" required>
+                  <option value="1">
+                    Planta
+                  </option>
+                  <option value="2">
+                    No planta
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="cantidadArticulo" >Cantidad </label>
+                <input type="number" class="form-control" id="cantidadArticulo" placeholder="Ej: Las petunias son debiles..." required>
+              </div>
+              <div class="form-group">
+                <label for="fechaArticulo">Fecha de caducidad</label>
+                <input type="text" class="form-control" id="fechaArticulo" placeholder="Ej: Las petunias son debiles..." required>
+              </div>
+              <div class="form-group">
+                  <label for="">Selecciona la imagen del articulo *</label>
+                  <div class="custom-file">
+                  
+                  <input (change)="handleFileSelect($event)" type="file" class="custom-file-input" id="imagenArticulo" aria-describedby="imagenArticulo">
+                  <label class="custom-file-label" for="imagenArticulo">Choose file</label>
+                  </div>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="guardarArticulo(formArticulo)">Guardar</button>
           </div>
         </div>
       </div>

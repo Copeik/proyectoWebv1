@@ -14,10 +14,12 @@ export class ArticulosService {
 
 
   getListaArticulos(page){
-
-    return this.http.get<any>(`http://localhost:8090/v1/articuloP?page=${page}&size=8`,{headers: this.header.append("Authorization","Bearer "+ this.token) });
+    return this.http.get<any>(`http://localhost:8090/v1/articuloP?page=${page}&size=9`,{headers: this.header.append("Authorization","Bearer "+ this.token) });
   }
   getAllItems(){
     return this.http.get<any>(`http://localhost:8090/v1/articulo`,{headers: this.header.append("Authorization","Bearer "+ this.token) });
+  }
+  postArticulo(a){
+    return this.http.post<any>(`http://localhost:8090/v1/articulo`,a,{headers: this.header.append("Authorization","Bearer "+ this.token) });
   }
 }
