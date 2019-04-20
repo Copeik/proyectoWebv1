@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -10,17 +11,26 @@ import { Form, NgForm } from '@angular/forms';
   styleUrls: ['./catalogo.component.scss']
 })
 export class CatalogoComponent implements OnInit {
+  admin:boolean = false;
   user;
   items:any;
   page:number=0;
   pages:Array<number>;
   base64textString:string;
   isError:boolean = false;
-  constructor(private articulosService:ArticulosService,private _sanitizer: DomSanitizer) { }
+  constructor(private articulosService:ArticulosService,private _sanitizer: DomSanitizer,private authService:AuthenticationService) { }
 
   ngOnInit() {
+    this.authService.getuser();
     this.getArticulos();
-    this.user =sessionStorage.getItem("Usuario");
+    this.user =JSON.parse(sessionStorage.getItem('Usuario'));
+    if(this.user.rol!=null){
+      if (this.user.rol.id_rol==3) {
+        this.admin=true;
+      }
+      
+    }
+    
   }
 
   getArticulos(){
@@ -83,4 +93,21 @@ _handleReaderLoaded(readerEvt) {
           this.base64textString= btoa(binaryString);
           console.log(btoa(binaryString));
   }
+
+
+  addToCar(item){
+    var carrito= sessionStorage.getItem("carrito");
+    if(carrito==null){
+      sessionStorage.setItem("carrito","[]"); 
+
+      carrito= sessionStorage.getItem("carrito");
+    }
+    var carritolist=[]
+    carritolist=JSON.parse(sessionStorage.getItem('carrito'));
+
+    carritolist.push(item);
+
+    sessionStorage.setItem("carrito",carritolist.toString());
+    
+     }
 }

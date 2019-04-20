@@ -1,5 +1,5 @@
 <div class="container-fluid" style="background-color: #b4e9e2">
-  <div class="row" > <div class="col-12"><button *ngIf="user.id_rol" style="float: right; margin: auto" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  <div class="row" > <div class="col-12"><button *ngIf="admin" style="float: right; margin: auto" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
       Nuevo articulo
     </button></div></div> 
   <div class="row">
@@ -16,7 +16,7 @@
       <div class="card-body">
         <h5 class="card-title">{{item.nombre}}</h5>
         <p class="card-text">{{item.descripcion}}</p>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Ver mas</button><button href="#" class="btn btn-success">Añadir al carrito</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Ver mas</button><button (click)="addToCar(item)"  class="btn btn-success">Añadir al carrito</button>
       </div>
     </div></div>
     <div class="col-7"></div>

@@ -67,6 +67,9 @@ export class AuthenticationService {
     this.router.navigate(['login']);
   }
   }
+  getAdmin(){
+    
+  }
 
   logout() {
     // remove user from local storage to log user out
