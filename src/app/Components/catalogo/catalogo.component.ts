@@ -97,17 +97,23 @@ _handleReaderLoaded(readerEvt) {
 
   addToCar(item){
     var carrito= sessionStorage.getItem("carrito");
+    var carritolist=[]
     if(carrito==null){
-      sessionStorage.setItem("carrito","[]"); 
+
+      sessionStorage.setItem("carrito",JSON.stringify(carritolist)); 
 
       carrito= sessionStorage.getItem("carrito");
+      console.log(carrito);
     }
-    var carritolist=[]
+    
     carritolist=JSON.parse(sessionStorage.getItem('carrito'));
+    console.log()
 
     carritolist.push(item);
 
-    sessionStorage.setItem("carrito",carritolist.toString());
+    sessionStorage.setItem("carrito",JSON.stringify(carritolist));
+
+    console.log(sessionStorage.getItem("carrito"));
     
      }
 }

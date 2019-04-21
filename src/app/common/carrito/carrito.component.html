@@ -1,7 +1,22 @@
-<div class="card" style="width: 100%;">
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+  <div class="row" style="margin-bottom: 1%"></div>
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-8">
+          <div class="row" *ngFor="let item of articulos; let i=index">
+            <div class="col-8 card w-75"  style="margin-bottom: 1%">
+              <div ><img class="col-3"style="width: 8rem" [src]="_sanitizer.bypassSecurityTrustResourceUrl(item.imagen)" ></div>
+              <div class="col-6"><h3>{{item.nombre}}</h3>
+              <p>{{item.descripcion}}</p></div>
+            </div>
+            <input type="number" min="1" id="cantidad-{{i}}">
+          </div>
+            
+    </div>
+    <div class="col-4">
+        Total:
+    </div>
+    </div>
+    
+    
   </div>
-</div>
+    
