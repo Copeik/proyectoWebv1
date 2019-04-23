@@ -1,6 +1,7 @@
 import { DomSanitizer } from '@angular/platform-browser';
 import { Articulos } from './../../model/Articulo';
 import { Component, OnInit } from '@angular/core';
+import { Especificaciones } from 'src/app/model/Especificaciones';
 
 @Component({
   selector: 'app-carrito',
@@ -8,14 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./carrito.component.scss']
 })
 export class CarritoComponent implements OnInit {
-  articulos:Array<Articulos>=[];
-  especificaciones:Array<any>=[];
-  total:number;
+  articulos=Array<Articulos>();
+  especificaciones:Array<Especificaciones> =[];
+  total:number = 0;
   base64textString:string;
 
   constructor(private _sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+    this.calcularTotal();
     this.articulos=JSON.parse(sessionStorage.getItem("carrito"));
   }
   handleFileSelect(evt){
@@ -40,10 +42,27 @@ _handleReaderLoaded(readerEvt) {
   }
 
   calcularTotal(){
+    this.total=0;
+    this.especificaciones = [];
     
-    for (let i = 0; i < this.articulos.length; i++) {
-      this.especificaciones[i] = this.articulos[i];
-      
+
+    if (this.articulos !=null && this.articulos != undefined) {
+      for (let i = 0; i < this.articulos.length; i++) {
+        this.especificaciones.push({"id": { "pedido":{ "codpedido":0 },"art": {
+          "codarticulo":0 }},"cantidad": 0,
+          "precio":0});
+        this.especificaciones[i].id.art.codarticulo = this.articulos[i].codarticulo;
+        console.log(this.articulos[i].precio_articulo);
+        var cantidad:any=(<HTMLInputElement>document.getElementById("cantidad-"+i)).value; 
+        if(cantidad == NaN){
+          cantidad =0;
+        }
+        console.log(cantidad);
+        this.especificaciones[i].precio= parseInt(cantidad) * this.articulos[i].precio_articulo;
+        this.total = this.total +this.especificaciones[i].precio;
+      }
     }
+    
+    
   }
 }

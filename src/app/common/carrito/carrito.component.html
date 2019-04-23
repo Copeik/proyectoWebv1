@@ -1,19 +1,33 @@
   <div class="row" style="margin-bottom: 1%"></div>
   <div class="container-fluid">
     <div class="row">
-        <div class="col-8">
-          <div class="row" *ngFor="let item of articulos; let i=index">
-            <div class="col-8 card w-75"  style="margin-bottom: 1%">
-              <div ><img class="col-3"style="width: 8rem" [src]="_sanitizer.bypassSecurityTrustResourceUrl(item.imagen)" ></div>
-              <div class="col-6"><h3>{{item.nombre}}</h3>
-              <p>{{item.descripcion}}</p></div>
+        <div style="scroll-margin-left: initial" class="col-8">
+          <div class="card flex-row flex-wrap mt-1" *ngFor="let item of articulos;let i = index">
+            <div class="card-header border-0" style="width: 12rem">
+                <img style="width: 12rem" [src]="_sanitizer.bypassSecurityTrustResourceUrl(item.imagen)" alt="">
             </div>
-            <input type="number" min="1" id="cantidad-{{i}}">
-          </div>
+            <div class="card-block px-2">
+                <h4 class="card-title">{{item.nombre}}</h4>
+                <p class="card-text">{{item.descripcion}}</p>
+                <label for="">Cantidad:</label>
+                <input  class="form-control" id="cantidad-{{i}}" type="number" value="0" min="0" max="50" (change)="calcularTotal()">
+            </div>
+            <div class="w-100"></div>
+            <div class="card-footer w-100 text-muted">
+                Precio: {{item.precio_articulo}} €
+            </div>
+        </div>
             
     </div>
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">Detalles del pedido:</div>
+        <div class="card-body">
+          <h4 class="card-title">Total:{{total}} €</h4>
+          <h5 class="card-text">Selecciona el metodo de pago:</h5>
+        </div>
+      </div>
     <div class="col-4">
-        Total:
+        Total: {{total}}
     </div>
     </div>
     
