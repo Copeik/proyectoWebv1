@@ -1,3 +1,4 @@
+import { PedidosService } from './../../services/pedidos.service';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { ArticulosService } from 'src/app/services/articulos.service';

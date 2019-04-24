@@ -2,6 +2,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Articulos } from './../../model/Articulo';
 import { Component, OnInit } from '@angular/core';
 import { Especificaciones } from 'src/app/model/Especificaciones';
+import { PedidosService } from 'src/app/services/pedidos.service';
+import { Pedidos } from 'src/app/model/Pedidos';
+import { User } from 'src/app/model/Usuario';
 
 @Component({
   selector: 'app-carrito',
@@ -14,7 +17,7 @@ export class CarritoComponent implements OnInit {
   total:number = 0;
   base64textString:string;
 
-  constructor(private _sanitizer: DomSanitizer) { }
+  constructor(private _sanitizer: DomSanitizer,private pedservice:PedidosService) { }
 
   ngOnInit() {
     
@@ -70,11 +73,16 @@ _handleReaderLoaded(readerEvt) {
     
   }
   comprar(){
-   
-    return this.http.post<any>(`http://localhost:8090/login`, { "usuario": username, "contrasena": password }).subscribe(res => {
-      console.log(res);
+   var ped= new Pedidos();
+  var user =sessionStorage.getItem("Usuario");
+  var usuario:User=JSON.parse(user);
+  console.log(usuario);
+  
+    ped.cliente=usuario;
+    ped.fecha="122211";
+    console.log(ped);
+     this.pedservice.comprar(ped,this.especificaciones);
     
-      })
 
   }
   

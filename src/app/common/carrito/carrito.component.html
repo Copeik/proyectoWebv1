@@ -17,6 +17,7 @@
                 Precio: {{item.precio_articulo}} €
             </div>
         </div>
+        <h1 *ngIf="total==0"> Tu carrito esta vacio :C</h1>
             
     </div>
     <div class="card bg-light mb-3" style="max-width: 18rem;">
@@ -24,7 +25,8 @@
         <div class="card-body">
           <h4 class="card-title">Total:{{total}} €</h4>
           <h5 class="card-text">Selecciona el metodo de pago:</h5>
-          <button class="btn btn-primary"> Comprar </button>
+          <button *ngIf="total>0"  class="btn btn-primary" (click)="comprar()"> Comprar </button>
+          <p style="color: red" *ngIf="total<=0">Añade articulos a tu carrito para poder comprar :D</p>
         </div>
       </div>
     </div>
