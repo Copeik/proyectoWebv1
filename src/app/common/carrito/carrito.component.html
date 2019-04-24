@@ -10,7 +10,7 @@
                 <h4 class="card-title">{{item.nombre}}</h4>
                 <p class="card-text">{{item.descripcion}}</p>
                 <label for="">Cantidad:</label>
-                <input  class="form-control" id="cantidad-{{i}}" type="number" value="0" min="0" max="50" (change)="calcularTotal()">
+                <input  class="form-control" id="cantidad-{{i}}" type="number" value="1" min="1" max="50" (change)="calcularTotal()">
             </div>
             <div class="w-100"></div>
             <div class="card-footer w-100 text-muted">
@@ -24,11 +24,9 @@
         <div class="card-body">
           <h4 class="card-title">Total:{{total}} €</h4>
           <h5 class="card-text">Selecciona el metodo de pago:</h5>
+          <button class="btn btn-primary"> Comprar </button>
         </div>
       </div>
-    <div class="col-4">
-        Total: {{total}}
-    </div>
     </div>
     
     

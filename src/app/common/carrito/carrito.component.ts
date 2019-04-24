@@ -17,7 +17,11 @@ export class CarritoComponent implements OnInit {
   constructor(private _sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.calcularTotal();
+    
+    
+    setTimeout(() => {
+      this.calcularTotal();
+    }, 100);
     this.articulos=JSON.parse(sessionStorage.getItem("carrito"));
   }
   handleFileSelect(evt){
@@ -65,4 +69,13 @@ _handleReaderLoaded(readerEvt) {
     
     
   }
+  comprar(){
+   
+    return this.http.post<any>(`http://localhost:8090/login`, { "usuario": username, "contrasena": password }).subscribe(res => {
+      console.log(res);
+    
+      })
+
+  }
+  
 }
