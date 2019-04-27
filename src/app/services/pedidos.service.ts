@@ -38,4 +38,13 @@ export class PedidosService {
       })
 
   }
+
+
+  getallByCliente(id){
+    return this.http.get<any>(`http://localhost:8090/v1/pedidos?codcliente=`+id ,{headers: this.header.append("Authorization","Bearer "+ this.token) });
+  }
+
+  getallByPedido(id){
+    return this.http.get<any>(`http://localhost:8090/v1/pedido?cod_pedido=`+id ,{headers: this.header.append("Authorization","Bearer "+ this.token) });
+  }
 }

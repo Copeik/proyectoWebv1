@@ -1,26 +1,29 @@
   <div class="row" style="margin-bottom: 1%"></div>
   <div class="container-fluid">
     <div class="row">
-        <div style="scroll-margin-left: initial" class="col-8">
-          <div class="card flex-row flex-wrap mt-1" *ngFor="let item of articulos;let i = index">
+        <div style="scroll-margin-left: initial" class="col-8" style="max-height: 75%; ">
+          <div class="card flex-row flex-wrap mt-1" *ngFor="let item of articulos;let i = index" style>
             <div class="card-header border-0" style="width: 12rem">
                 <img style="width: 12rem" [src]="_sanitizer.bypassSecurityTrustResourceUrl(item.imagen)" alt="">
             </div>
-            <div class="card-block px-2">
+            <div class="card-block px-2 w-50">
                 <h4 class="card-title">{{item.nombre}}</h4>
                 <p class="card-text">{{item.descripcion}}</p>
                 <label for="">Cantidad:</label>
                 <input  class="form-control" id="cantidad-{{i}}" type="number" value="1" min="1" max="50" (change)="calcularTotal()">
+                
             </div>
-            <div class="w-100"></div>
+            <div class="w-100">
+              <button style="float: right;" class="btn btn-danger" (click)="eliminarArticulo(item.codarticulo)">X</button></div>
             <div class="card-footer w-100 text-muted">
                 Precio: {{item.precio_articulo}} €
             </div>
+          
         </div>
         <h1 *ngIf="total==0"> Tu carrito esta vacio :C</h1>
             
     </div>
-    <div class="card bg-light mb-3" style="max-width: 18rem;">
+    <div class="card bg-light mb-3" style="max-width: 18rem; ">
         <div class="card-header">Detalles del pedido:</div>
         <div class="card-body">
           <h4 class="card-title">Total:{{total}} €</h4>

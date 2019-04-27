@@ -19,7 +19,7 @@ import {TableModule} from 'primeng/table';
 import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
 import {MenuItem} from 'primeng/api';                 //api
 import { PedidoComponent } from './common/pedido/pedido.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -38,6 +38,7 @@ import { PedidoComponent } from './common/pedido/pedido.component';
     PedidoComponent
   ],
   imports: [
+    NgxPaginationModule,
     AccordionModule,
     BrowserModule,
     TableModule,

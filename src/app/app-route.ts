@@ -1,3 +1,4 @@
+import { PedidoComponent } from './common/pedido/pedido.component';
 import { PedidosComponent } from './common/pedidos/pedidos.component';
 import { CarritoComponent } from './common/carrito/carrito.component';
 import { HomeComponent } from './Components/home/home.component';
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'pedidos',
     component: PedidosComponent
+  },
+  {
+    path: 'pedido/:id',
+    component: PedidoComponent
   },
   {
     path: 'registro-articulos',

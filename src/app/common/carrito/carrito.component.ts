@@ -77,7 +77,8 @@ _handleReaderLoaded(readerEvt) {
   var user =sessionStorage.getItem("Usuario");
   var usuario:User=JSON.parse(user);
   console.log(usuario);
-  
+    ped.descripcion="hay que crear la descripcion"
+    ped.total=this.total;
     ped.cliente=usuario;
     ped.fecha="122211";
     console.log(ped);
@@ -85,5 +86,18 @@ _handleReaderLoaded(readerEvt) {
     
 
   }
+
+  eliminarArticulo(idart){
+    for (let i = 0; i < this.articulos.length; i++) {
+      if (this.articulos[i].codarticulo==idart) {
+        this.articulos.splice(i,1);
+      }
+      
+    }
+    sessionStorage.setItem("carrito",JSON.stringify(this.articulos));
+    console.log(this.articulos);
+      
+    }
+  }
   
-}
+
