@@ -9,6 +9,7 @@ import { InicioComponent } from './Components/inicio/inicio.component';
 import { LoginComponent } from './common/login/login.component';
 import { RegistroArticulosComponent } from './common/registro-articulos/registro-articulos.component';
 import { RegistroUsuariosComponent } from './common/registro-usuarios/registro-usuarios.component';
+import { RegistroComponent } from './common/registro/registro.component';
 const routes: Routes = [
   {
     path: 'inicio',
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'registro',
+    component: RegistroComponent
   },
   {
     path: 'catalogo',

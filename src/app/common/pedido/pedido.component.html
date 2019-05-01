@@ -1,4 +1,5 @@
-<div class="container" id="content" #content>
+<div  class="container" style="background: white" >
+  <div class="container" id="content" #content>
     <header class="clearfix" >
         <div id="logo">
           <img  src="tuli.jpg">
@@ -12,75 +13,42 @@
         </div>
         <div id="project">
           <div><span>Tienda</span> Somiplantas </div>
-          <div><span>Cliente</span> </div>
+          <div><span>Cliente</span>{{Pedido.cliente.usuario}} </div>
           <div><span>Direccion</span>direccion inventada implementar**</div>
           <div><span>EMAIL</span> <a href="mailto:john@example.com">{{Pedido.cliente.correo}}</a></div>
           <div><span>Fecha</span>{{Pedido.fecha}}</div>
-          <div><span>Fecha de entrega</span> implementar</div>
         </div>
       </header>
       <main>
         <table>
           <thead>
             <tr>
-              <th class="service">SERVICE</th>
-              <th class="desc">DESCRIPTION</th>
-              <th>PRICE</th>
-              <th>QTY</th>
-              <th>TOTAL</th>
+              <th class="service">Articulo</th>
+              <th class="desc">Descripcion</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Total</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="service">Design</td>
-              <td class="desc">Creating a recognizable design solution based on the company's existing visual identity</td>
-              <td class="unit">$40.00</td>
-              <td class="qty">26</td>
-              <td class="total">$1,040.00</td>
-            </tr>
-            <tr>
-              <td class="service">Development</td>
-              <td class="desc">Developing a Content Management System-based Website</td>
-              <td class="unit">$40.00</td>
-              <td class="qty">80</td>
-              <td class="total">$3,200.00</td>
-            </tr>
-            <tr>
-              <td class="service">SEO</td>
-              <td class="desc">Optimize the site for search engines (SEO)</td>
-              <td class="unit">$40.00</td>
-              <td class="qty">20</td>
-              <td class="total">$800.00</td>
-            </tr>
-            <tr>
-              <td class="service">Training</td>
-              <td class="desc">Initial training sessions for staff responsible for uploading web content</td>
-              <td class="unit">$40.00</td>
-              <td class="qty">4</td>
-              <td class="total">$160.00</td>
-            </tr>
-            <tr>
-              <td colspan="4">SUBTOTAL</td>
-              <td class="total">$5,200.00</td>
-            </tr>
-            <tr>
-              <td colspan="4">TAX 25%</td>
-              <td class="total">$1,300.00</td>
-            </tr>
-            <tr>
-              <td colspan="4" class="grand total">GRAND TOTAL</td>
-              <td class="grand total">$6,500.00</td>
+            <tr *ngFor="let item of listaEspecificaciones">
+              <td class="service">{{item.id.art.nombre}}</td>
+              <td class="desc">{{item.id.art.descripcion}}</td>
+              <td class="unit">{{item.id.art.precio_art}}</td>
+              <td class="qty">{{item.cantidad}}</td>
+              <td class="total">{{item.precio}}</td>
             </tr>
           </tbody>
         </table>
         <div id="notices">
           <div>NOTICE:</div>
-          <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+          <div class="notice">Para cualquier problema contactar con el telefono 691664534</div>
         </div>
       </main>
-      <footer>
-        Invoice was created on a computer and is valid without the signature and seal.
-      </footer>
+      
      
 </div>
-<button (click)="downloadPDF()">Descargar documento</button>
+<button class="btn btn-info" style="margin-top: 20%"  (click)="downloadPDF()">Descargar documento</button>
+<button class="btn btn-danger" style="margin-top: 20%" [routerLink]="['/pedidos']" routerLinkActive="router-link-active" >Volver</button>
+
+</div>

@@ -6,6 +6,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import * as jsPDF from 'jspdf';
 import { discardPeriodicTasks } from '@angular/core/testing';
 import html2canvas from 'html2canvas';  
+import { Especificaciones } from 'src/app/model/Especificaciones';
 
 @Component({
   selector: 'app-pedido',
@@ -15,6 +16,7 @@ import html2canvas from 'html2canvas';
 export class PedidoComponent implements OnInit {
   User;
   Pedido;
+  listaEspecificaciones:Array<Especificaciones> =[];
 
   constructor(private rutaActiva: ActivatedRoute,private _route: ActivatedRoute,private pedidosService:PedidosService) { }
 
@@ -42,8 +44,12 @@ export class PedidoComponent implements OnInit {
   }
   cargarPedido(){
     this.pedidosService.getallByPedido(this._route.snapshot.paramMap.get('id')).subscribe(res =>{
-      this.Pedido = res;
-      console.log(res);
+      this.Pedido = res[0];
+      console.log( res[0]);
+      this.pedidosService.getEspecificacionesByPedido(this.Pedido.codpedido).subscribe(res =>{
+        this.listaEspecificaciones=res;
+        console.log(res,"Especificaciones");
+      });
     });
     
   }

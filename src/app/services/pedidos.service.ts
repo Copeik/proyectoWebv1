@@ -47,4 +47,8 @@ export class PedidosService {
   getallByPedido(id){
     return this.http.get<any>(`http://localhost:8090/v1/pedido?cod_pedido=`+id ,{headers: this.header.append("Authorization","Bearer "+ this.token) });
   }
+
+  getEspecificacionesByPedido(id){
+    return this.http.get<any>(`http://localhost:8090/v1/especificacionesPedido?cod_pedido=`+id ,{headers: this.header.append("Authorization","Bearer "+ this.token) });
+  }
 }

@@ -1,25 +1,30 @@
-<div class="container-fluid" style="height: 100%;">
-  <div class="row">
-        <table class="table table-sm table-dark">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Cliente</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Funciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of listapedido | paginate:{itemsPerPage:5 , currentPage: paginaActual};  let i = index" >
-                    <th scope="row">{{i + 1}}</th>
-                    <td>{{item.cliente.id}}</td>
-                    <td>{{item.descripcion}}</td>
-                    <td>{{item.total}}</td>
-                    <td><button class="btn btn-info" [routerLink]="['/pedido',item.codpedido]">Ver mas</button> <button class="btn btn-danger">Cancelar</button></td>
-                  </tr>
-                </tbody>
-              </table>
-              <pagination-controls  (pageChange)="paginaActual = $event"></pagination-controls>
-  </div>
+<div class="container" style="height: 100%;">
+  <div class="card" >
+      <div class="card-body">
+        <div class="row">
+            <h2> Tus pedidos :</h2>
+                <table class="table table-sm table-dark mt-5">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Funciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of listapedido | paginate:{itemsPerPage:5 , currentPage: paginaActual};  let i = index" >
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{item.cliente.id}}</td>
+                            <td>{{item.descripcion}}</td>
+                            <td>{{item.total}}</td>
+                            <td><button class="btn btn-info" [routerLink]="['/pedido',item.codpedido]">Ver mas</button> <button class="btn btn-danger">Cancelar</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <pagination-controls  (pageChange)="paginaActual = $event"></pagination-controls>
+          </div>
+      </div>
+    </div>
   <button class="btn btn-danger">volver</button>

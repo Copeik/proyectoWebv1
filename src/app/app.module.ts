@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './common/login/login.component';
 import { HomeComponent } from './Components/home/home.component';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { InicioComponent } from './Components/inicio/inicio.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
@@ -20,6 +20,7 @@ import {AccordionModule} from 'primeng/accordion';     //accordion and accordion
 import {MenuItem} from 'primeng/api';                 //api
 import { PedidoComponent } from './common/pedido/pedido.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { RegistroComponent } from './common/registro/registro.component';
 
 
 
@@ -35,7 +36,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     RegistroArticulosComponent,
     CarritoComponent,
     PedidosComponent,
-    PedidoComponent
+    PedidoComponent,
+    RegistroComponent
+    
   ],
   imports: [
     NgxPaginationModule,
@@ -45,7 +48,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     RouterModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
