@@ -6,17 +6,24 @@
   <div class="card bg-light">
   <article class="card-body mx-auto" style="max-width: 400px;">
     <h4 class="card-title mt-3 text-center">Crea tu cuenta</h4>
-    <form [formGroup]="formRegistro" (change)="VerEstado()">
+    <form [formGroup]="formRegistro" (change)="VerEstado()" (ngSubmit)="guardarUsuario()" >
         <label for=""> Nombre: </label> 
     <div class="form-group input-group">
       <div class="input-group-prepend">
-          <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          <span class="input-group-text">  </span>
        </div>
-          <input  id="nombre" formControlName="nombre" class="form-control" placeholder="Nombre" type="text">
+          <input  id="nombre" formControlName="nombre" class="form-control" placeholder="Nombre" type="text" >
           
       </div>
+
       <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.nombre.pristine == false && formRegistro.controls.nombre.invalid">
         Campo obligatorio
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="usuarioUnico == false">
+        Este usuario ya existe !!!
+      </div>
+      <div class="alert alert-success" role="alert" *ngIf="usuarioUnico == true">
+        Nombre disponible :D
       </div>
       
 
@@ -63,7 +70,7 @@
             <input id="direccion" formControlName="direccion" class="form-control" placeholder="" type="text">
         </div> <!-- form-group// -->                                   
       <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block" [disabled]="!formRegistro.valid && this.equalPassword==true"> Crear cuenta  </button>
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!formRegistro.valid && this.equalPassword==true && usuarioUnico == true"> Crear cuenta  </button>
       </div> <!-- form-group// -->      
       <p class="text-center">¿Tienes ya una cuenta? <a href="">Log In</a> </p>                                                                 
   </form>
