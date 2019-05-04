@@ -56,7 +56,7 @@ export class AuthenticationService {
 
   saveuser(username:string){
     this.header.append("Content-Type","application/json");
-    return this.http.get<any>(`http://localhost:8090/v1/usuario?nombre=${username}`).subscribe(res =>{
+    return this.http.get<any>(`http://localhost:8090/v1/usuario?usuario=${username}`).subscribe(res =>{
       sessionStorage.setItem("Usuario",JSON.stringify(res));
       console.log("usuario guardado")
     });
@@ -68,7 +68,7 @@ export class AuthenticationService {
   }
 
   checkuser(username:string){
-    return this.http.get<any>(`http://localhost:8090/v1/usuario?nombre=${username}`);
+    return this.http.get<any>(`http://localhost:8090/v1/usuario?usuario=${username}`);
   }
 
   getuser(){

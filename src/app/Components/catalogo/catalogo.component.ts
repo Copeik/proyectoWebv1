@@ -5,6 +5,9 @@ import { ArticulosService } from 'src/app/services/articulos.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Articulos } from 'src/app/model/Articulo';
 import { Form, NgForm } from '@angular/forms';
+import { HttpHeaders } from '@angular/common/http';
+import { CarritoComponent } from 'src/app/common/carrito/carrito.component';
+import { CarritoService } from 'src/app/services/carrito.service';
 
 @Component({
   selector: 'app-catalogo',
@@ -19,11 +22,13 @@ export class CatalogoComponent implements OnInit {
   pages:Array<number>;
   base64textString:string;
   isError:boolean = false;
-  constructor(private articulosService:ArticulosService,private _sanitizer: DomSanitizer,private authService:AuthenticationService) { }
+  tiposlist=[];
+  constructor(private articulosService:ArticulosService,private _sanitizer: DomSanitizer,private authService:AuthenticationService,private _carritoService:CarritoService) { }
 
   ngOnInit() {
     this.authService.getuser();
     this.getArticulos();
+    this.getAllTipos();
     this.user =JSON.parse(sessionStorage.getItem('Usuario'));
     if(this.user.rol!=null){
       if (this.user.rol.id_rol==3) {
@@ -31,6 +36,13 @@ export class CatalogoComponent implements OnInit {
       }
       
     }
+    
+  }
+
+  getAllTipos(){
+   this._carritoService.getTipos().subscribe(res=>{
+     this.tiposlist = res
+   })
     
   }
 

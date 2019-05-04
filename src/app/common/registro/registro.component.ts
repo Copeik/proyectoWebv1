@@ -17,6 +17,7 @@ spinner= false;
 
   constructor(private fb: FormBuilder,private authenticationService:AuthenticationService,private router:Router) {
     this.formRegistro = this.fb.group({
+      usuario:['',Validators.required],
       nombre:['',Validators.required],
       apellidos:['',Validators.required],
       correo:['',Validators.compose([
@@ -51,12 +52,12 @@ spinner= false;
 }
 checkUser(){
   
-  var nombre=(<HTMLInputElement>document.getElementById("nombre")).value;
-  this.authenticationService.checkuser(nombre).subscribe( res => {
+  var usuario=(<HTMLInputElement>document.getElementById("usuario")).value;
+  this.authenticationService.checkuser(usuario).subscribe( res => {
     if (res != null) {
       console.log("entro")
       console.log(res,"res")
-      if (res.usuario == nombre) {
+      if (res.usuario == usuario) {
         console.log("entro2")
         this.usuarioUnico = false;
         this.spinner= false
@@ -82,7 +83,9 @@ checkUser(){
     var rol=Object();
         rol.id_rol=1;
     cliente.rol=rol;
-    cliente.usuario= datos.nombre;
+    cliente.usuario= datos.usuario;
+    cliente.nombre= datos.nombre;
+    cliente.apellidos= datos.apellidos;
 
     console.log(cliente);
           this.authenticationService.guardarUsuario(cliente);

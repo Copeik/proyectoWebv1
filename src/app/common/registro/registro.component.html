@@ -7,7 +7,26 @@
   <article class="card-body mx-auto" style="max-width: 400px;">
     <h4 class="card-title mt-3 text-center">Crea tu cuenta</h4>
     <form [formGroup]="formRegistro" (change)="VerEstado()" (ngSubmit)="guardarUsuario()" >
-        <label for=""> Nombre: </label> 
+        <label for=""> Usuario: </label> 
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+          <span class="input-group-text">  </span>
+       </div>
+          <input  id="usuario" formControlName="usuario" class="form-control" placeholder="Usuario" type="text" >
+          
+      </div>
+
+      <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.usuario.pristine == false && formRegistro.controls.usuario.invalid">
+        Campo obligatorio
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="usuarioUnico == false">
+        Este usuario ya existe !!!
+      </div>
+      <div class="alert alert-success" role="alert" *ngIf="usuarioUnico == true">
+        Nombre disponible :D
+      </div>
+      
+      <label for=""> Nombre: </label> 
     <div class="form-group input-group">
       <div class="input-group-prepend">
           <span class="input-group-text">  </span>
@@ -19,13 +38,6 @@
       <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.nombre.pristine == false && formRegistro.controls.nombre.invalid">
         Campo obligatorio
       </div>
-      <div class="alert alert-danger" role="alert" *ngIf="usuarioUnico == false">
-        Este usuario ya existe !!!
-      </div>
-      <div class="alert alert-success" role="alert" *ngIf="usuarioUnico == true">
-        Nombre disponible :D
-      </div>
-      
 
       <label for=""> Apellidos:</label> 
       <div class="form-group input-group">
