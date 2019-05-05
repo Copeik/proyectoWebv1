@@ -22,4 +22,8 @@ export class CarritoService {
   getTipos(){
     return this.http.get<any>(`http://localhost:8090/v1/tipo`,{headers: this.header.append("Authorization","Bearer "+ this.token) });
   }
+
+  postTipos(tipo){
+    return this.http.post<any>(`http://localhost:8090/v1/tipo`,tipo,{headers: this.header.append("Authorization","Bearer "+ this.token) });
+  }
 }

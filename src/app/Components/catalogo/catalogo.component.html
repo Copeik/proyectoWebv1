@@ -5,8 +5,21 @@
   <div class="row">
   <div class="col-3">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <a *ngFor="let item of tiposlist"class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" >{{item.nombre}}</a>
+      <a *ngFor="let item of tiposlist"class="nav-link " id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" >{{item.nombre}}</a>
     </div>
+    <div class="card w-50" *ngIf="creartipo">
+        <div class="card-body">
+            <label for=""> Categoria: </label> 
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text">  </span>
+               </div>
+                  <input  id="tipoa" class="form-control" placeholder="EJ:Plantas" type="text" > 
+              </div>
+          <button (click)="postTipo()" class="btn btn-primary">Añadir</button>
+        </div>
+      </div>
+  <button class="btn btn-info" *ngIf="admin" (click)="creartipo=!creartipo">Añadir tipo/categoria</button>
   </div>
   <div class="row col-9"><div *ngFor="let item of items" class="card" style="margin:auto; margin-bottom:1%; width: 18rem;">
       <img class="card-img-top" [src]="_sanitizer.bypassSecurityTrustResourceUrl(item.imagen)" alt="Card image cap">
@@ -16,7 +29,10 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Ver mas</button><button (click)="addToCar(item)"  class="btn btn-success">Añadir al carrito</button>
       </div>
     </div></div>
-    <div class="col-7"><button class="btn btn-info">Añadir tipo/categoria</button></div>
+    <div class="col-7" >
+        
+    
+    </div>
     <div class="col-4" ><nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item">
@@ -73,7 +89,7 @@
               <div class="form-group">
                 <label for="tipoArticulo">Tipo</label>
                 <select id="tipoArticulo" class="custom-select" required>
-                  <option value="item.codigo_t" *ngFor="let item of tiposlist">
+                  <option value="{{item.codigo_t}}" *ngFor="let item of tiposlist">
                     {{item.nombre}}
                   </option>
                 </select>
