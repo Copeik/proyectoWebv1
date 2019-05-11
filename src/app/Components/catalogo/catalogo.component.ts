@@ -15,6 +15,7 @@ import { CarritoService } from 'src/app/services/carrito.service';
   styleUrls: ['./catalogo.component.scss']
 })
 export class CatalogoComponent implements OnInit {
+  paginaActual=1;
   creartipo=false;
   admin:boolean = false;
   user;
@@ -44,6 +45,7 @@ export class CatalogoComponent implements OnInit {
    this._carritoService.getTipos().subscribe(res=>{
      this.tiposlist = res
    })
+   console.log(this.tiposlist)
     
   }
   postTipo(){
@@ -52,11 +54,26 @@ export class CatalogoComponent implements OnInit {
     this._carritoService.postTipos(tipo).subscribe(res =>{
       console.log(res);
       this.creartipo=!this.creartipo
-    })
+      this.getAllTipos();
+    });
+    
+  }
+  deleteArticulos(item,num){
+     this.articulosService.deleteItem(item).subscribe(res =>{
+       console.log(res)
+       this.items.splice(num, 1);
+     });
+  }
+
+  getarticulosCategoria(tipo){
+    console.log(tipo);
+     this.articulosService.getListaArticulosTipo(tipo).subscribe(res =>{
+       this.items=res
+     });
   }
 
   getArticulos(){
-    this.articulosService.getListaArticulos(this.page).subscribe(res => {
+    this.articulosService.getAllItems().subscribe(res => {
     this.items=res;
     console.log(this.items)
     });
