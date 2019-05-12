@@ -7,23 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   carritonumero;
-  carrito;
+  carrito:Array<any>;
   constructor() { }
 
   ngOnInit() {
-    this.carrito=sessionStorage.getItem("Carrito")
-    console.log(this.carrito);
-    if(this.carrito !=null && this.carrito != undefined){
-      this.carrito=JSON.parse(this.carrito)
-      this.carritonumero=this.carrito.lenght;
-      console.log(this.carritonumero);
-    }
+    // this.carrito=JSON.parse(sessionStorage.getItem('carrito'))
+    // console.log(this.carrito);
+    // if(this.carrito !=null && this.carrito != undefined){
+    //   this.carritonumero=this.carrito.length;
+    //   console.log(this.carrito.length)
+    //   console.log(this.carritonumero);
+    // }
   }
 
 
   
   CerrarSesion(){
     sessionStorage.removeItem("Usuario");
+    
+    sessionStorage.removeItem("carrito");
     setTimeout(() => {
       window.location.reload();
     }, 0);

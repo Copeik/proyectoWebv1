@@ -8,6 +8,7 @@ import { Form, NgForm } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { CarritoComponent } from 'src/app/common/carrito/carrito.component';
 import { CarritoService } from 'src/app/services/carrito.service';
+import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-catalogo',
@@ -152,7 +153,7 @@ _handleReaderLoaded(readerEvt) {
 
     sessionStorage.setItem("carrito",JSON.stringify(carritolist));
 
-    console.log(sessionStorage.getItem("carrito"));
+    alert("Añadido con exito tiene "+carritolist.length+" articulos")
     
      }
 }

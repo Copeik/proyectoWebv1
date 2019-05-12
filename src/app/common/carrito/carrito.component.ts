@@ -1,10 +1,11 @@
 import { DomSanitizer } from '@angular/platform-browser';
 import { Articulos } from './../../model/Articulo';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Especificaciones } from 'src/app/model/Especificaciones';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { Pedidos } from 'src/app/model/Pedidos';
 import { User } from 'src/app/model/Usuario';
+import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 
 @Component({
   selector: 'app-carrito',
@@ -16,11 +17,12 @@ export class CarritoComponent implements OnInit {
   especificaciones:Array<Especificaciones> =[];
   total:number = 0;
   base64textString:string;
+  showSuccess: boolean;
 
   constructor(private _sanitizer: DomSanitizer,private pedservice:PedidosService) { }
 
   ngOnInit() {
-    
+    this.initConfig();
     
     setTimeout(() => {
       this.calcularTotal();
@@ -66,6 +68,7 @@ _handleReaderLoaded(readerEvt) {
         }
         console.log(cantidad);
         this.especificaciones[i].precio= parseInt(cantidad) * this.articulos[i].precio_articulo;
+        this.especificaciones[i].cantidad= parseInt(cantidad);
         this.total = this.total +this.especificaciones[i].precio;
       }
     }
@@ -73,6 +76,7 @@ _handleReaderLoaded(readerEvt) {
     
   }
   comprar(){
+    
    var ped= new Pedidos();
   var user =sessionStorage.getItem("Usuario");
   var usuario:User=JSON.parse(user);
@@ -83,8 +87,9 @@ _handleReaderLoaded(readerEvt) {
     ped.fecha="122211";
     console.log(ped);
      this.pedservice.comprar(ped,this.especificaciones);
-    
-
+     this.articulos=[];
+     this.especificaciones=[];
+     this.initConfig();
   }
 
   eliminarArticulo(idart){
@@ -98,6 +103,76 @@ _handleReaderLoaded(readerEvt) {
     console.log(this.articulos);
       
     }
+
+
+
+    //----------------
+
+    public payPalConfig?: IPayPalConfig;
+
+
+    private initConfig(): void {
+      this.payPalConfig = {
+      currency: 'EUR',
+      clientId: 'AcbVdb57moxEcqBzIMyRI480PZj2-9_OACAWZbAUig21XOKTu-38ZfJY8J-j2cBUvWT-DN3YqoYsOXmE',
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        purchase_units: [
+          {
+            amount: {
+              currency_code: 'EUR',
+              value: ""+this.total,
+              breakdown: {
+                item_total: {
+                  currency_code: 'EUR',
+                  value: ""+this.total
+                }
+              }
+            },
+            items: [
+              {
+                name: 'Pedido Somiplantas',
+                quantity: '1',
+                category: 'DIGITAL_GOODS',
+                unit_amount: {
+                  currency_code: 'EUR',
+                  value: ""+this.total,
+                },
+              }
+            ]
+          }
+        ]
+      },
+      advanced: {
+          commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical'
+      },
+      onApprove: (data, actions) => {
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        actions.order.get().then(details => {
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
+          this.comprar();
+          sessionStorage.removeItem("carrito");
+          this.articulos=JSON.parse(sessionStorage.getItem("carrito"));
+        });
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+        this.showSuccess = true;
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+      },
+      onError: err => {
+        console.log('OnError', err);
+      },
+      onClick: () => {
+        console.log('onClick');
+      },
+    };
+    }
   }
-  
 

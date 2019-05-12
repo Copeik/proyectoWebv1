@@ -21,7 +21,7 @@ import {MenuItem} from 'primeng/api';                 //api
 import { PedidoComponent } from './common/pedido/pedido.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RegistroComponent } from './common/registro/registro.component';
-
+import { NgxPayPalModule } from '../../node_modules/ngx-paypal';
 
 
 @NgModule({
@@ -41,6 +41,7 @@ import { RegistroComponent } from './common/registro/registro.component';
     
   ],
   imports: [
+    NgxPayPalModule,
     NgxPaginationModule,
     AccordionModule,
     BrowserModule,
