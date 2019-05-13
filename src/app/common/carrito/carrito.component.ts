@@ -81,7 +81,7 @@ _handleReaderLoaded(readerEvt) {
   var user =sessionStorage.getItem("Usuario");
   var usuario:User=JSON.parse(user);
   console.log(usuario);
-    ped.descripcion="hay que crear la descripcion"
+    ped.descripcion= (<HTMLInputElement>document.getElementById("descripcion")).value
     ped.total=this.total;
     ped.cliente=usuario;
     ped.fecha="122211";
@@ -89,6 +89,7 @@ _handleReaderLoaded(readerEvt) {
      this.pedservice.comprar(ped,this.especificaciones);
      this.articulos=[];
      this.especificaciones=[];
+     sessionStorage.removeItem("carrito");
      this.initConfig();
   }
 

@@ -21,35 +21,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>(`http://localhost:8090/login`, { "usuario": username, "contrasena": password }).subscribe(res => {
-      console.log(res);
-    },error => {
-      if (error.status==200) {
-        console.log(error);
-        let jwt = error.error.text;
-      console.log(jwt);
-        let jwtData = jwt.split('.')[1]
-        let decodedJwtJsonData = window.atob(jwtData)
-        let decodedJwtData = JSON.parse(decodedJwtJsonData)
-
-
-        console.log('jwtData: ' + jwtData)
-        console.log('decodedJwtJsonData: ' + decodedJwtJsonData)
-        console.log('decodedJwtData: ' + decodedJwtData.sub)
-        //aqui le mandamos el token y el usuario para que lo guarde
-        this.saveuser(decodedJwtData.sub);
-        this.router.navigate(['inicio']);
-        setTimeout(() => {
-          window.location.reload();
-        }, 0);
-        
-
-        
-      }
-      else{console.log(error)}
-      
-        
-    })
+    return this.http.post<any>(`http://localhost:8090/login`, { "usuario": username, "contrasena": password });
 
   };
   

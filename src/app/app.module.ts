@@ -22,6 +22,7 @@ import { PedidoComponent } from './common/pedido/pedido.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RegistroComponent } from './common/registro/registro.component';
 import { NgxPayPalModule } from '../../node_modules/ngx-paypal';
+import {MessagesModule} from 'primeng/messages';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { NgxPayPalModule } from '../../node_modules/ngx-paypal';
     
   ],
   imports: [
+    MessagesModule,
     NgxPayPalModule,
     NgxPaginationModule,
     AccordionModule,

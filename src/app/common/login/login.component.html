@@ -9,9 +9,9 @@
     </div>
 
     <!-- Login Form -->
-    
+      <p-messages [(value)]="msgs"></p-messages>
       <input type="text" [(ngModel)]="user" id="login" class="fadeIn second" name="login" placeholder="Usuario">
-      <input type="text" [(ngModel)]="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña">
+      <input type="password" [(ngModel)]="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña">
       <input type="button" class="fadeIn fourth" value="Log In" (click)="Login()">
     
 
