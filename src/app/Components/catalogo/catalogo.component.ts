@@ -9,6 +9,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { CarritoComponent } from 'src/app/common/carrito/carrito.component';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { Alert } from 'selenium-webdriver';
+import {MessageService} from 'primeng/api';
+
 
 @Component({
   selector: 'app-catalogo',
@@ -26,7 +28,7 @@ export class CatalogoComponent implements OnInit {
   base64textString:string;
   isError:boolean = false;
   tiposlist=[];
-  constructor(private articulosService:ArticulosService,private _sanitizer: DomSanitizer,private authService:AuthenticationService,private _carritoService:CarritoService) { }
+  constructor(private articulosService:ArticulosService,private _sanitizer: DomSanitizer,private messageService: MessageService,private authService:AuthenticationService,private _carritoService:CarritoService) { }
 
   ngOnInit() {
     this.authService.getuser();
@@ -152,8 +154,7 @@ _handleReaderLoaded(readerEvt) {
     carritolist.push(item);
 
     sessionStorage.setItem("carrito",JSON.stringify(carritolist));
-
-    alert("Añadido con exito tiene "+carritolist.length+" articulos")
+    this.messageService.add({severity:'success', summary:'+1', detail:'Articulo añadido :D'});
     
      }
 }

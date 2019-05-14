@@ -101,6 +101,7 @@ _handleReaderLoaded(readerEvt) {
       
     }
     sessionStorage.setItem("carrito",JSON.stringify(this.articulos));
+    this.calcularTotal();
     console.log(this.articulos);
       
     }

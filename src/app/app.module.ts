@@ -23,6 +23,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RegistroComponent } from './common/registro/registro.component';
 import { NgxPayPalModule } from '../../node_modules/ngx-paypal';
 import {MessagesModule} from 'primeng/messages';
+import {MessageService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -42,6 +46,8 @@ import {MessagesModule} from 'primeng/messages';
     
   ],
   imports: [
+    BrowserAnimationsModule,
+    ToastModule,
     MessagesModule,
     NgxPayPalModule,
     NgxPaginationModule,
@@ -54,7 +60,7 @@ import {MessagesModule} from 'primeng/messages';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,10 @@
 <div class="container-fluid" style="background-color: #b4e9e2">
-  <div class="row" > <div class="col-12"><button *ngIf="admin" style="float: right; margin: auto" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  <p-toast></p-toast>
+  <div class="row mb-2" > <div class="col-12"><button *ngIf="admin" style="float: right; margin: auto" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
       Nuevo articulo
     </button></div></div> 
   <div class="row">
-  <div class="col-3">
+  <div class="col-lg-3 d-none d-lg-block d-md-none">
           <div class="col-12">
             <div class="card">
               <div class="list-group list-group-flush"> 
@@ -13,22 +14,48 @@
               </div>
             </div>
           </div>
-        
-    <div class="card w-50" *ngIf="creartipo">
-        <div class="card-body">
-            <label for=""> Categoria: </label> 
-            <div class="form-group input-group">
-              <div class="input-group-prepend">
-                  <span class="input-group-text">  </span>
-               </div>
-                  <input  id="tipoa" class="form-control" placeholder="EJ:Plantas" type="text" > 
-              </div>
-          <button class="ml-5" (click)="postTipo()" class="btn btn-primary">Añadir</button>
-        </div>
+          <div class="card w-100 mt-2 ml-2" *ngIf="creartipo">
+            <div class="card-body">
+                <label for=""> Categoria: </label> 
+                <div class="form-group input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text">  </span>
+                   </div>
+                      <input  id="tipoa" class="form-control" placeholder="EJ:Plantas" type="text" > 
+                  </div>
+              <button class="ml-5" (click)="postTipo()" class="btn btn-primary">Añadir</button>
+            </div>
+          </div>
+      <button class="btn btn-info  ml-2" *ngIf="admin" (click)="creartipo=!creartipo">Añadir tipo/categoria</button>
+      
+</div>
+
+  <div class="col-lg-3 d-block d-lg-none">
+    <div class="dropdown">
+      <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Categoria
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" class="list-group-item"  (click)="getArticulos()"><strong>Todos los articulos</strong></a>
+        <a class="dropdown-item" *ngFor="let item of tiposlist" class="list-group-item"  (click)="getarticulosCategoria(item.codigo_t)"><strong>{{item.nombre}}</strong></a>
       </div>
-  <button class="btn btn-info justify-content-center" *ngIf="admin" (click)="creartipo=!creartipo">Añadir tipo/categoria</button>
-  </div>
-  <div class="col-9"><div class="row">
+    </div>
+    <div class="card w-50" *ngIf="creartipo">
+      <div class="card-body">
+          <label for=""> Categoria: </label> 
+          <div class="form-group input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">  </span>
+             </div>
+                <input  id="tipoa" class="form-control" placeholder="EJ:Plantas" type="text" > 
+            </div>
+        <button class="ml-5" (click)="postTipo()" class="btn btn-primary">Añadir</button>
+      </div>
+    </div>
+<button class="btn btn-info justify-content-center" *ngIf="admin" (click)="creartipo=!creartipo">Añadir tipo/categoria</button>
+
+</div>
+  <div class="col-lg-9 col-md-12"><div class="row">
       <div class="mt-1 mr-1" *ngFor="let item of items | paginate:{itemsPerPage:9 , currentPage: paginaActual};  let i = index" >
       
           <div  class="card" style="margin:auto; margin-bottom:1%; width: 20rem;">
