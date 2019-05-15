@@ -1,4 +1,5 @@
   <div class="row" style="margin-bottom: 1%"></div>
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
   <div class="container-fluid">
     <div class="row">
         <div class="col-lg-8 col-md-12" >
@@ -34,7 +35,7 @@
           <h5 class="card-text">Selecciona el metodo de pago:</h5>
           <!--                       -->
           <ngx-paypal  [config]="payPalConfig"></ngx-paypal>
-          <button (click)="comprar()" >Comprar sin paypal</button>
+          <button (click)="confirm()" >Comprar sin paypal</button>
           hola
           <p style="color: red" *ngIf="total<=0">Añade articulos a tu carrito para poder comprar :D</p>
 
