@@ -11,7 +11,14 @@ export class PedidosComponent implements OnInit {
   paginaActual =1;
   listapedido:Array<Pedidos>=[];
   usuario:User;
+  card:string = "pedidos";
 
+  cols = [
+    { field: 'codpedido', header: 'Codigo Pedido' },
+    { field: 'descripcion', header: 'Descripcion' },
+    { field: 'total', header: 'Total' }
+];
+  
   constructor(private pedidosService:PedidosService) { }
 
   ngOnInit() {
@@ -25,6 +32,10 @@ export class PedidosComponent implements OnInit {
      this.listapedido = res;
      console.log(res);
    });
+  }
+
+  changeCard(any){
+    this.card=any;
   }
 
 }

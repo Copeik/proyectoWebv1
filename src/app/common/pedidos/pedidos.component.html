@@ -1,30 +1,63 @@
-<div class="container" style="height: 100%;">
-  <div class="card" >
-      <div class="card-body">
+<div class="container-fluid" style="height: 100%;">
+  
+  <div class="row mt-5" >
+      <div class="col-lg-2 d-none d-lg-block d-md-none">
+          <div class="col-12">
+            <div class="card">
+              <div class="list-group list-group-flush"> 
+                <button class="list-group-item"  (click)="changeCard('cliente')"><strong>Datos personales</strong></button>
+                <button class="list-group-item"  (click)="changeCard('pedidos')"><strong>Pedidos</strong></button>
+                <button class="list-group-item"  (click)="changeCard('crud')"><strong>Crud</strong></button>
+              </div>
+            </div>
+          </div>      
+</div>
+      <div class="col-10 card-body" *ngIf="card=='pedidos'">
         <div class="row">
             <h2> Tus pedidos :</h2>
-                <table class="table table-sm table-dark mt-5">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Cliente</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Funciones</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let item of listapedido | paginate:{itemsPerPage:5 , currentPage: paginaActual};  let i = index" >
-                            <th scope="row">{{i + 1}}</th>
-                            <td>{{item.cliente.id}}</td>
-                            <td>{{item.descripcion}}</td>
-                            <td>{{item.total}}</td>
-                            <td><button class="btn btn-info" [routerLink]="['/pedido',item.codpedido]">Ver mas</button> <button class="btn btn-danger">Cancelar</button></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <pagination-controls  (pageChange)="paginaActual = $event"></pagination-controls>
+            <p-table #dt [columns]="cols" [value]="listapedido" [paginator]="true"[paginator]="true" [rows]="5">
+                <ng-template pTemplate="caption">
+                    <div style="text-align: right">        
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                            <input *ngSwitchCase="'Codigo Pedido'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                            
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" >
+                        <td *ngFor="let col of columns" >
+                            {{rowData[col.field]}}
+                        </td>
+                        <td>
+                            <button class="btn btn-info" [routerLink]="['/pedido',rowData['codpedido']]">Ver mas</button>
+                        </td>
+                    </tr>
+                </ng-template>
+              </p-table>
           </div>
+        </div>
       </div>
+      <div class="col-10 card-body" *ngIf="card=='crud'">
+          <div class="row">
+              <h2> Datos :</h2>
+            </div>
+        </div>
+        <div class="col-10 card-body" *ngIf="card=='cliente'">
+            <div class="row">
+                <h2> Datos Personales :</h2>
+              </div>
+          </div>
     </div>
   <button class="btn btn-danger">volver</button>

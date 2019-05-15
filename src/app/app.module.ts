@@ -46,6 +46,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     
   ],
   imports: [
+    TableModule,
     BrowserAnimationsModule,
     ToastModule,
     MessagesModule,

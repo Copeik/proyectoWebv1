@@ -1,6 +1,6 @@
-<div class="container-fluid" style="background-color: #b4e9e2">
-  <p-toast></p-toast>
-  <div class="row mb-2" > <div class="col-12"><button *ngIf="admin" style="float: right; margin: auto" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<p-toast></p-toast>
+<div class="container-fluid" >
+  <div class="row mb-2 mt-2" > <div class="col-12"><button *ngIf="admin" style="float: right; margin: auto" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
       Nuevo articulo
     </button></div></div> 
   <div class="row">
@@ -26,7 +26,7 @@
               <button class="ml-5" (click)="postTipo()" class="btn btn-primary">Añadir</button>
             </div>
           </div>
-      <button class="btn btn-info  ml-2" *ngIf="admin" (click)="creartipo=!creartipo">Añadir tipo/categoria</button>
+      <button class="btn btn-primary ml-3" *ngIf="admin" (click)="creartipo=!creartipo">Añadir tipo/categoria</button>
       
 </div>
 
@@ -56,16 +56,16 @@
 
 </div>
   <div class="col-lg-9 col-md-12"><div class="row">
-      <div class="mt-1 mr-1" *ngFor="let item of items | paginate:{itemsPerPage:9 , currentPage: paginaActual};  let i = index" >
+      <div class="mt-1 mr-1 w-25" *ngFor="let item of items | paginate:{itemsPerPage:9 , currentPage: paginaActual};  let i = index" >
       
-          <div  class="card" style="margin:auto; margin-bottom:1%; width: 20rem;">
-              <img class="card-img-top" [src]="_sanitizer.bypassSecurityTrustResourceUrl(item.imagen)" alt="Card image cap">
+          <div  class="card" style="margin:auto; margin-bottom:1%;">
+              <img  class="card-img-top w-100" [src]="_sanitizer.bypassSecurityTrustResourceUrl(item.imagen)" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{item.nombre}}</h5>
                 <p class="card-text">{{item.descripcion}}</p>
                 <p><strong class="card-text">Precio:{{item.precio_art}}</strong></p>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Ver mas</button><button (click)="addToCar(item)"  class="btn btn-success">Añadir al carrito</button>
-                <button class="btn btn-danger" *ngIf="admin" (click)="deleteArticulos(item,i)">Eliminar articulo</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Ver mas</button><button (click)="addToCar(item)"  class="btn btn-success ml-1">Añadir al carrito</button>
+                <button class="btn btn-danger ml-1" *ngIf="admin" (click)="deleteArticulos(item,i)">Eliminar articulo</button>
               </div>
             </div>
       </div>
