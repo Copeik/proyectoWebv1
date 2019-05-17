@@ -8,6 +8,6 @@ export class Pedidos {
         entregado: boolean
         descripcion:string
         total: number
-        estado: null;
+        estado: number;
     
 }

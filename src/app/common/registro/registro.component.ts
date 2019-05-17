@@ -24,6 +24,11 @@ spinner= false;
         Validators.required,
         Validators.email
       ])],
+      telefono:['',Validators.compose([
+        Validators.required,
+        Validators.pattern("[0-9]*"),
+        Validators.maxLength(9)
+      ])],
       contrasena:['',Validators.required],
       contrasena2:['',Validators.compose([
         Validators.required,
@@ -83,6 +88,7 @@ checkUser(){
     var rol=Object();
         rol.id_rol=1;
     cliente.rol=rol;
+    cliente.telefono=datos.telefono;
     cliente.usuario= datos.usuario;
     cliente.nombre= datos.nombre;
     cliente.apellidos= datos.apellidos;

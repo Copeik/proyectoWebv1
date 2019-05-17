@@ -85,6 +85,7 @@ _handleReaderLoaded(readerEvt) {
     ped.total=this.total;
     ped.cliente=usuario;
     ped.fecha="122211";
+    ped.estado=1;//estado pedido nuevo
     console.log(ped);
      this.pedservice.comprar(ped,this.especificaciones);
      this.articulos=[];

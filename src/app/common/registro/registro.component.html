@@ -49,6 +49,16 @@
         <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.apellidos.pristine == false && formRegistro.controls.apellidos.invalid">
           Campo obligatorio
         </div>
+        <label for=""> Telefono:</label> 
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+         </div>
+            <input id="telefono"  formControlName="telefono" class="form-control" placeholder="Telefono" type="text">
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.telefono.pristine == false && formRegistro.controls.telefono.invalid">
+          Campo obligatorio
+        </div>
         <label for=""> Correo electronico:</label> 
       <div class="form-group input-group">
         <div class="input-group-prepend">
