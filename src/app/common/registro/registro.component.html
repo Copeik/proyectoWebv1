@@ -10,7 +10,7 @@
         <label for=""> Usuario: </label> 
     <div class="form-group input-group">
       <div class="input-group-prepend">
-          <span class="input-group-text">  </span>
+          <span class="input-group-text"> <i class="pi pi-tag"></i> </span>
        </div>
           <input  id="usuario" formControlName="usuario" class="form-control" placeholder="Usuario" type="text" >
           
@@ -29,7 +29,7 @@
       <label for=""> Nombre: </label> 
     <div class="form-group input-group">
       <div class="input-group-prepend">
-          <span class="input-group-text">  </span>
+          <span class="input-group-text"> <i class="pi pi-user"></i> </span>
        </div>
           <input  id="nombre" formControlName="nombre" class="form-control" placeholder="Nombre" type="text" >
           
@@ -41,9 +41,6 @@
 
       <label for=""> Apellidos:</label> 
       <div class="form-group input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-         </div>
             <input id="apellidos"  formControlName="apellidos" class="form-control" placeholder="Apellidos" type="text">
         </div> <!-- form-group// -->
         <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.apellidos.pristine == false && formRegistro.controls.apellidos.invalid">
@@ -52,7 +49,7 @@
         <label for=""> Telefono:</label> 
       <div class="form-group input-group">
         <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+            <span class="input-group-text">  <i class="pi pi-mobile"></i> </span>
          </div>
             <input id="telefono"  formControlName="telefono" class="form-control" placeholder="Telefono" type="text">
         </div>
@@ -62,7 +59,7 @@
         <label for=""> Correo electronico:</label> 
       <div class="form-group input-group">
         <div class="input-group-prepend">
-          <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+          <span class="input-group-text"> <i class="pi pi-envelope"></i> </span>
        </div>
           <input id="email"  formControlName="correo" class="form-control" placeholder="Correo electrónico" type="email">
       </div> <!-- form-group// -->
@@ -72,29 +69,27 @@
     <label for=""> Crear contraseña:</label> 
       <div class="form-group input-group">
         <div class="input-group-prepend">
-          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+          <span class="input-group-text"> <i class="pi pi-key"></i> </span>
       </div>
           <input id="password"  formControlName="contrasena" class="form-control" placeholder="Ejemplo: Fcv24-34" type="password">
       </div> <!-- form-group// -->
       <label for=""> Repita la contraseña:</label> 
       <div class="form-group input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-      </div>
+        
           <input id="password2"  formControlName="contrasena2" class="form-control" placeholder="" type="password" >
       </div> <!-- form-group// -->  
       <label for=""> Direccion:</label> 
       <div class="form-group input-group">
         
         <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+            <span class="input-group-text"> <i class="pi pi-pencil"></i> </span>
          </div>
             <input id="direccion" formControlName="direccion" class="form-control" placeholder="" type="text">
         </div> <!-- form-group// -->                                   
       <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block" [disabled]="!formRegistro.valid && this.equalPassword==true && usuarioUnico == true"> Crear cuenta  </button>
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!formRegistro.valid && this.equalPassword==true && usuarioUnico == true"> Crear cuenta  <i class="pi pi-save"></i></button>
       </div> <!-- form-group// -->      
-      <p class="text-center">¿Tienes ya una cuenta? <a href="">Log In</a> </p>                                                                 
+      <p class="text-center">¿Tienes ya una cuenta? <a routerLink="/login">Log In</a> </p>                                                                 
   </form>
   </article>
   </div> <!-- card.// -->

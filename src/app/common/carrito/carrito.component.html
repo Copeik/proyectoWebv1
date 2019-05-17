@@ -21,7 +21,8 @@
             </div>
           
         </div>
-        <h1 *ngIf="total==0"> Tu carrito esta vacio :C</h1>
+        <h1 *ngIf="total==0" class="text-center mt-5"> Tu carrito esta vacio</h1>
+        <img src="https://png.pngtree.com/svg/20170913/bacb8f1c9c.svg" class="center">
             
     </div>
     <div class="card bg-light mb-3  col-lg-4 col-md-12 " style="max-width: 95%; height: 500px;">
@@ -34,9 +35,9 @@
           </div>
           <h5 class="card-text">Selecciona el metodo de pago:</h5>
           <!--                       -->
-          <ngx-paypal  [config]="payPalConfig"></ngx-paypal>
-          <button (click)="confirm()" >Comprar sin paypal</button>
-          hola
+          <ngx-paypal  *ngIf="total>0" [config]="payPalConfig"></ngx-paypal>
+          <button (click)="confirm()" *ngIf="total>0" >Comprar sin paypal</button>
+          
           <p style="color: red" *ngIf="total<=0">Añade articulos a tu carrito para poder comprar :D</p>
 
         </div>
