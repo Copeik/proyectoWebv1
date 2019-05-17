@@ -1,3 +1,4 @@
+import { ConfirmationService } from 'primeng/api';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Articulos } from './../../model/Articulo';
 import { Component, OnInit, } from '@angular/core';
@@ -19,7 +20,7 @@ export class CarritoComponent implements OnInit {
   base64textString:string;
   showSuccess: boolean;
 
-  constructor(private _sanitizer: DomSanitizer,private pedservice:PedidosService) { }
+  constructor(private _sanitizer: DomSanitizer,private pedservice:PedidosService,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.initConfig();
@@ -75,6 +76,15 @@ _handleReaderLoaded(readerEvt) {
     
     
   }
+  
+  confirm() {
+    this.confirmationService.confirm({
+        message: 'Se va a proceder al cobro, ¿Desea continuar?',
+        accept: () => {
+          this.comprar();
+        }
+    });
+}
   comprar(){
     
    var ped= new Pedidos();
@@ -90,6 +100,7 @@ _handleReaderLoaded(readerEvt) {
      this.pedservice.comprar(ped,this.especificaciones);
      this.articulos=[];
      this.especificaciones=[];
+     this.total=0;
      sessionStorage.removeItem("carrito");
      this.initConfig();
   }
