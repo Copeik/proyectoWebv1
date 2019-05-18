@@ -39,6 +39,9 @@ export class PedidosService {
 
   }
 
+  getallByAdmin(){
+    return this.http.get<any>(`http://localhost:8090/v1/pedidos`,{headers: this.header.append("Authorization","Bearer "+ this.token) });
+  }
 
   getallByCliente(id){
     return this.http.get<any>(`http://localhost:8090/v1/pedidos?codcliente=`+id ,{headers: this.header.append("Authorization","Bearer "+ this.token) });

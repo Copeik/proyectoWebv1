@@ -20,8 +20,8 @@
         <table>
           <thead>
             <tr>
-              <th class="service">Articulo</th>
-              <th class="desc">Descripcion</th>
+              <th>Articulo</th>
+              <th>Descripcion</th>
               <th>Precio</th>
               <th>Cantidad</th>
               <th>Total</th>
@@ -29,11 +29,11 @@
           </thead>
           <tbody>
             <tr *ngFor="let item of listaEspecificaciones">
-              <td class="service">{{item.id.art.nombre}}</td>
-              <td class="desc">{{item.id.art.descripcion}}</td>
-              <td class="unit">{{item.id.art.precio_art}}</td>
-              <td class="qty">{{item.cantidad}}</td>
-              <td class="total">{{item.precio}}</td>
+              <td >{{item.id.art.nombre}}</td>
+              <td>{{item.id.art.descripcion}}</td>
+              <td >{{item.id.art.precio_art}}€</td>
+              <td >{{item.cantidad}}</td>
+              <td>{{item.precio}}</td>
             </tr>
           </tbody>
         </table>
@@ -46,7 +46,10 @@
      
 </div>
 
-<button class="btn btn-info" style="margin-top: 20%"  (click)="downloadPDF()">Descargar documento</button>
-<button class="btn btn-danger" style="margin-top: 20%" [routerLink]="['/pedidos']" routerLinkActive="router-link-active" >Volver</button>
+<div style="margin-top: 15%">
+  <a style="margin-top: 20%"  (click)="downloadPDF()"><i class="pi pi-download"></i></a>
+  <a class="btn btn-danger" [routerLink]="['/pedidos']" routerLinkActive="router-link-active" >Volver</a>
+</div>
+
 
 </div>

@@ -8,6 +8,8 @@ export class Pedidos {
         entregado: boolean
         descripcion:string
         total: number
-        estado: number;
+        estado: {
+            id:number
+        }
     
 }

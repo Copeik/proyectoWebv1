@@ -4,15 +4,12 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './common/login/login.component';
-import { HomeComponent } from './Components/home/home.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { InicioComponent } from './Components/inicio/inicio.component';
 import { SidebarComponent } from './common/sidebar/sidebar.component';
 import { CatalogoComponent } from './Components/catalogo/catalogo.component';
-import { RegistroUsuariosComponent } from './common/registro-usuarios/registro-usuarios.component';
-import { RegistroArticulosComponent } from './common/registro-articulos/registro-articulos.component';
 import { CarritoComponent } from './common/carrito/carrito.component';
 import { PedidosComponent } from './common/pedidos/pedidos.component';
 import {TableModule} from 'primeng/table';
@@ -28,25 +25,25 @@ import {ToastModule} from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import { ModificarPedidoComponent } from './Components/modificar-pedido/modificar-pedido.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent,
     InicioComponent,
     SidebarComponent,
     CatalogoComponent,
-    RegistroUsuariosComponent,
-    RegistroArticulosComponent,
     CarritoComponent,
     PedidosComponent,
     PedidoComponent,
-    RegistroComponent
-    
+    RegistroComponent,
+    ModificarPedidoComponent
   ],
   imports: [
+    SplitButtonModule,
     ConfirmDialogModule,
     TableModule,
     BrowserAnimationsModule,

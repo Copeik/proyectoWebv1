@@ -91,11 +91,15 @@ _handleReaderLoaded(readerEvt) {
   var user =sessionStorage.getItem("Usuario");
   var usuario:User=JSON.parse(user);
   console.log(usuario);
+    var estado={
+      id:1
+    }
+
     ped.descripcion= (<HTMLInputElement>document.getElementById("descripcion")).value
     ped.total=this.total;
     ped.cliente=usuario;
     ped.fecha="122211";
-    ped.estado=1;//estado pedido nuevo
+    ped.estado=estado;//estado pedido nuevo
     console.log(ped);
      this.pedservice.comprar(ped,this.especificaciones);
      this.articulos=[];
