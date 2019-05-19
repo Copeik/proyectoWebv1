@@ -1,4 +1,4 @@
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Articulos } from './../../model/Articulo';
 import { Component, OnInit, } from '@angular/core';
@@ -20,7 +20,7 @@ export class CarritoComponent implements OnInit {
   base64textString:string;
   showSuccess: boolean;
 
-  constructor(private _sanitizer: DomSanitizer,private pedservice:PedidosService,private confirmationService: ConfirmationService) { }
+  constructor(private messageService: MessageService,private _sanitizer: DomSanitizer,private pedservice:PedidosService,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.initConfig();
@@ -98,7 +98,8 @@ _handleReaderLoaded(readerEvt) {
     ped.descripcion= (<HTMLInputElement>document.getElementById("descripcion")).value
     ped.total=this.total;
     ped.cliente=usuario;
-    ped.fecha="122211";
+    var hoy=new Date();
+    ped.fecha= ""+hoy.getDate()+"-"+(hoy.getMonth()+1)+"-"+hoy.getFullYear()+"\t"+hoy.getHours()+":"+hoy.getMinutes();
     ped.estado=estado;//estado pedido nuevo
     console.log(ped);
      this.pedservice.comprar(ped,this.especificaciones);
@@ -107,6 +108,8 @@ _handleReaderLoaded(readerEvt) {
      this.total=0;
      sessionStorage.removeItem("carrito");
      this.initConfig();
+
+     this.messageService.add({severity:'info', summary: 'Información', detail:'Pedido realizado , para ver los detalles del mismo dirijase a su perfil'});
   }
 
   eliminarArticulo(idart){

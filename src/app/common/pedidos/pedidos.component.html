@@ -44,23 +44,100 @@
                         </td>
                         <td>
                             <!-- <button class="btn btn-info" [routerLink]="['/pedido',rowData['codpedido']]">Ver mas</button> -->
-                            <p-splitButton label="Ver" icon="pi pi-eye" (onClick)="Verpedido(rowData['codpedido'])" [model]="items"></p-splitButton>
+                            <p-splitButton label="Ver" value="rowData['codpedido']" icon="pi pi-eye" (onClick)="Verpedido(rowData['codpedido'])" [model]="devueltaItem(rowData['codpedido'])"></p-splitButton>
                         </td>
                     </tr>
                 </ng-template>
               </p-table>
           </div>
         </div>
-      </div>
-      <div class="col-10 card-body" *ngIf="card=='crud'">
-          <div class="row">
-              <h2> Datos :</h2>
-            </div>
-        </div>
-        <div class="col-10 card-body" *ngIf="card=='cliente'">
+        <div class="col-10 card-body" *ngIf="card=='crud'">
             <div class="row">
-                <h2> Datos Personales :</h2>
+                <h2> Datos :</h2>
               </div>
           </div>
+          <div class="col-10 card-body" *ngIf="card=='cliente'">
+              <div class="row">
+                  <h2 class="col-12"> Datos Personales :</h2>
+
+                  <form class="col-12" [formGroup]="formRegistro" (change)="VerEstado()" (ngSubmit)="guardarUsuario()" >
+                    <label for=""> Usuario: </label> 
+                <div  class="form-group input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"> <i class="pi pi-tag"></i> </span>
+                   </div>
+                      <input disabled [(ngModel)]="usuario.usuario" id="usuario" formControlName="usuario" class="form-control" placeholder="Usuario" type="text" >
+                      
+                  </div>
+
+                  
+                  <label for=""> Nombre: </label> 
+                <div class="form-group input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text"> <i class="pi pi-user"></i> </span>
+                   </div>
+                      <input  id="nombre" [(ngModel)]="usuario.nombre" formControlName="nombre" class="form-control" placeholder="Nombre" type="text" >
+                      
+                  </div>
+            
+                  <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.nombre.pristine == false && formRegistro.controls.nombre.invalid">
+                    Campo obligatorio
+                  </div>
+            
+                  <label for=""> Apellidos:</label> 
+                  <div class="form-group input-group">
+                        <input id="apellidos" [(ngModel)]="usuario.apellidos"  formControlName="apellidos" class="form-control" placeholder="Apellidos" type="text">
+                    </div> <!-- form-group// -->
+                    <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.apellidos.pristine == false && formRegistro.controls.apellidos.invalid">
+                      Campo obligatorio
+                    </div>
+                    <label for=""> Telefono:</label> 
+                  <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">  <i class="pi pi-mobile"></i> </span>
+                     </div>
+                        <input id="telefono" [(ngModel)]="usuario.telefono" formControlName="telefono" class="form-control" placeholder="Telefono" type="text">
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.telefono.pristine == false && formRegistro.controls.telefono.invalid">
+                      Porfavor rellene el campo con numeros, hasta un maximo de 9.
+                    </div>
+                    <label for=""> Correo electronico:</label> 
+                  <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"> <i class="pi pi-envelope"></i> </span>
+                   </div>
+                      <input id="email" [(ngModel)]="usuario.correo"  formControlName="correo" class="form-control" placeholder="Correo electrónico" type="email">
+                  </div> <!-- form-group// -->
+                  <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.correo.pristine == false && formRegistro.controls.correo.invalid">
+                    Campo obligatorio , porfavor complete el campo con el formato correcto ej:imventadillo@gmail.com
+                  </div>
+                <label for=""> Cambiar contraseña:</label> 
+                  <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"> <i class="pi pi-key"></i> </span>
+                  </div>
+                      <input id="password" [(ngModel)]="usuario.contrasena"  formControlName="contrasena" class="form-control" placeholder="Ejemplo: Fcv24-34" type="password">
+                  </div> <!-- form-group// -->
+                  <!-- <label for=""> Repita la contraseña:</label> 
+                  <div class="form-group input-group">
+                    
+                      <input id="password2"  formControlName="contrasena2" class="form-control" placeholder="" type="password" >
+                  </div> form-group//   -->
+                  <label for=""> Direccion:</label> 
+                  <div class="form-group input-group">
+                    
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="pi pi-pencil"></i> </span>
+                     </div>
+                        <input id="direccion" [(ngModel)]="usuario.dir.direc" formControlName="direccion" class="form-control" placeholder="" type="text">
+                    </div> <!-- form-group// -->                                   
+                  <div class="form-group">
+                      <button type="submit" class="btn btn-primary btn-block" [disabled]="!formRegistro.valid"> Modificar cuenta  <i class="pi pi-save"></i></button>
+                  </div> <!-- form-group// -->                                                                      
+              </form>
+                </div>
+            </div>
+      </div>
+      
     </div>
   <button class="btn btn-danger">volver</button>

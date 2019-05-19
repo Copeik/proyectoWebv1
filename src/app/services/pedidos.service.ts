@@ -39,6 +39,28 @@ export class PedidosService {
 
   }
 
+  update(ped:Pedidos ,especificaciones:Array<Especificaciones>){
+    var cod;
+     this.http.post<any>(`http://localhost:8090/v1/pedidos`,ped ,{headers: this.header.append("Authorization","Bearer "+ this.token) }).subscribe(res => {
+      
+     
+       for (let i = 0; i < especificaciones.length; i++) {
+         console.log(especificaciones)
+         this.http.post<any>(`http://localhost:8090/v1/especificaciones`,especificaciones[i] ,{headers: this.header.append("Authorization","Bearer "+ this.token) }).subscribe(res => {
+           
+         
+           console.log(res);
+           
+           })
+           this.router.navigate(["/pedidos"])
+       }
+     })
+        
+       
+       
+ 
+   }
+
   getallByAdmin(){
     return this.http.get<any>(`http://localhost:8090/v1/pedidos`,{headers: this.header.append("Authorization","Bearer "+ this.token) });
   }
