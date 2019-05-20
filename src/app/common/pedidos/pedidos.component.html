@@ -44,7 +44,7 @@
                         </td>
                         <td>
                             <!-- <button class="btn btn-info" [routerLink]="['/pedido',rowData['codpedido']]">Ver mas</button> -->
-                            <p-splitButton label="Ver" value="rowData['codpedido']" icon="pi pi-eye" (onClick)="Verpedido(rowData['codpedido'])" [model]="devueltaItem(rowData['codpedido'])"></p-splitButton>
+                            <p-splitButton label="Ver" value="rowData['codpedido']" icon="pi pi-eye" (onClick)="Verpedido(rowData['codpedido'])" [model]="devueltaItem(rowData)"></p-splitButton>
                         </td>
                     </tr>
                 </ng-template>

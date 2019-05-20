@@ -76,4 +76,21 @@ export class PedidosService {
   getEspecificacionesByPedido(id){
     return this.http.get<any>(`http://localhost:8090/v1/especificacionesPedido?cod_pedido=`+id ,{headers: this.header.append("Authorization","Bearer "+ this.token) });
   }
+
+  deleteEspecificaciones(pedido){
+    console.log(pedido);
+    this.http.get<any>(`http://localhost:8090/v1/especificacionesPedido?cod_pedido=`+pedido.codpedido ,{headers: this.header.append("Authorization","Bearer "+ this.token) }).subscribe(res=>{
+      
+      for (let i = 0; i < res.length; i++) {
+        console.log(res[i],"res");
+        this.http.post<any>(`http://localhost:8090/v1/especificacionesD`,res[i] ,{headers: this.header.append("Authorization","Bearer "+ this.token) }).subscribe(res =>{
+          console.log(res,"Borrado de esp")
+        });
+      }
+    });
+  }
+
+  deletePedido(pedido){
+    return this.http.post<any>(`http://localhost:8090/v1/pedidosD`,pedido ,{headers: this.header.append("Authorization","Bearer "+ this.token) });
+  }
 }

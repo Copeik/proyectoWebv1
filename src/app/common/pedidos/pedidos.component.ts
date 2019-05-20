@@ -34,7 +34,7 @@ devueltaItem(algo){
      this.router.navigate(["/modificarpedido/"+algo])
     }},
     {label: 'Eliminar', icon: 'pi pi-times', command: () => {
-        
+        this.deletePedido(algo);
     }}
   ];
 }
@@ -100,6 +100,23 @@ VerEstado(){
     });
    }
 
+
+   deletePedido(algo){
+
+      this.pedidosService.deleteEspecificaciones(algo);
+      setTimeout(() => {
+        this.pedidosService.deletePedido(algo).subscribe( async res =>{
+          console.log(res);
+          if (res) {
+            for (let i = 0; i < this.listapedido.length; i++) {
+               algo.codpedido = this.listapedido[i].codpedido;
+              this.listapedido.splice(i, 1);
+            }
+          }
+        });
+      }, 100);
+      
+   }
   changeCard(any){
     this.card=any;
   }
