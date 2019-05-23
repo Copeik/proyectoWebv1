@@ -6,6 +6,7 @@ import { Pedidos } from 'src/app/model/Pedidos';
 import { Router } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Modificaciones } from 'src/app/model/Modificaciones';
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.component.html',
@@ -25,9 +26,10 @@ export class PedidosComponent implements OnInit {
     { field: 'total', header: 'Total' }
 ];
 items = [];
-
+codpedido;
 
 devueltaItem(algo){
+  if(this.usuario.rol.id_rol==3){
   return this.items = [
     {label: 'Modificar', icon: 'pi pi-refresh', command: ($event) => {
       console.log()
@@ -37,6 +39,19 @@ devueltaItem(algo){
         this.deletePedido(algo);
     }}
   ];
+}else{
+  return this.items = [
+    {label: 'Solicitar modificacion', icon: 'pi pi-refresh', command: ($event) => {
+      this.showDialog(algo);
+    }},
+    {label: 'Cancelar pedido', icon: 'pi pi-times', command: () => {
+      this.showDialog(algo);
+    }}
+  ];
+}
+
+
+
 }
 VerEstado(){
   console.log(this.formRegistro);
@@ -75,6 +90,37 @@ VerEstado(){
       this.getpedidosUser(this.usuario.id);
     }
       
+  }
+
+  display: boolean = false;
+
+  showDialog(codpedido) {
+    this.display = true;
+    this.codpedido=codpedido;
+  }
+  textoEnsena() {
+    var a = (<HTMLInputElement>document.getElementById("textarea")).value
+    console.log("hola")
+    if(a.trim()!=""){
+      console.log(a)
+      var ped;
+      ped={codpedido:this.codpedido.codpedido}
+      var modificacion = new Modificaciones();
+      modificacion.codpedido=ped;
+      modificacion.modificado=false;
+      
+      modificacion.texto_modificacion=a;
+      console.log(modificacion)
+      this.pedidosService.postModificacion(modificacion).subscribe(res =>{
+        console.log(res);
+      })
+    }
+    this.display=false
+    var a = (<HTMLInputElement>document.getElementById("textarea")).value=""
+  }
+  cancelarM(){
+    this.display=false
+    var a = (<HTMLInputElement>document.getElementById("textarea")).value=""
   }
 
   guardarUsuario(){

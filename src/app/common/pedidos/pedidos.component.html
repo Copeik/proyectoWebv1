@@ -141,3 +141,18 @@
       
     </div>
   <button class="btn btn-danger">volver</button>
+
+
+
+  <p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}"
+    [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+    <div class="md-form">
+      <textarea id="textarea" class="md-textarea form-control" rows="3"></textarea>
+      <label for="form7">Rellene una breve descripcion de los cambio que quieres realizar</label>
+    </div>
+
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="textoEnsena()" label="Enviar"></button>
+      <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Cancelar" class="ui-button-secondary"></button>
+    </p-footer>
+  </p-dialog>

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Pedidos } from '../model/Pedidos';
 import { Especificaciones } from '../model/Especificaciones';
+import { Modificaciones } from '../model/Modificaciones';
 
 @Injectable({
   providedIn: 'root'
@@ -92,5 +93,9 @@ export class PedidosService {
 
   deletePedido(pedido){
     return this.http.post<any>(`http://localhost:8090/v1/pedidosD`,pedido ,{headers: this.header.append("Authorization","Bearer "+ this.token) });
+  }
+
+  postModificacion(modificacion:Modificaciones){
+    return this.http.post<any>(` http://localhost:8090/v1/modificaciones`,modificacion ,{headers: this.header.append("Authorization","Bearer "+ this.token) });
   }
 }

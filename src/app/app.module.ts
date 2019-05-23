@@ -27,7 +27,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import { ModificarPedidoComponent } from './Components/modificar-pedido/modificar-pedido.component';
-
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -43,6 +43,7 @@ import { ModificarPedidoComponent } from './Components/modificar-pedido/modifica
     ModificarPedidoComponent
   ],
   imports: [
+    DialogModule,
     SplitButtonModule,
     ConfirmDialogModule,
     TableModule,
