@@ -8,8 +8,8 @@
           <div class="col-12">
             <div class="card">
               <div class="list-group list-group-flush"> 
-                <a href="#" class="list-group-item"  (click)="getArticulos()"><strong>Todos los articulos</strong></a>
-                <a href="#" *ngFor="let item of tiposlist" class="list-group-item"  (click)="getarticulosCategoria(item.codigo_t)"><strong>{{item.nombre}}</strong></a>
+                <button class="list-group-item"  (click)="getArticulos()"><strong>Todos los articulos</strong></button>
+                <button *ngFor="let item of tiposlist" class="list-group-item"  (click)="getarticulosCategoria(item.codigo_t)"><strong>{{item.nombre}}</strong></button>
                 
               </div>
             </div>
