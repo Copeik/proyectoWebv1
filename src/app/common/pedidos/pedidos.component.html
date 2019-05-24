@@ -1,158 +1,188 @@
 <div class="container-fluid" style="height: 100%;">
-  
-  <div class="row mt-5" >
-      <div class="col-lg-2 d-none d-lg-block d-md-none">
-          <div class="col-12">
-            <div class="card">
-              <div class="list-group list-group-flush"> 
-                <button class="list-group-item"  (click)="changeCard('cliente')"><strong>Datos personales</strong></button>
-                <button class="list-group-item"  (click)="changeCard('pedidos')"><strong>Pedidos</strong></button>
-                <button class="list-group-item"  (click)="changeCard('crud')"><strong>Crud</strong></button>
-              </div>
-            </div>
-          </div>      
-</div>
-      <div class="col-10 card-body" *ngIf="card=='pedidos'">
-        <div class="row">
-            <h2>{{titulo}}</h2>
-            <p-table #dt [columns]="cols" [value]="listapedido" [paginator]="true"[paginator]="true" [rows]="10">
-                <ng-template pTemplate="caption">
-                    <div style="text-align: right">        
-                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+
+    <div class="row mt-5">
+        <div class="col-lg-2 d-none d-lg-block d-md-none">
+            <div class="col-12">
+                <div class="card">
+                    <div class="list-group list-group-flush">
+                        <button class="list-group-item" (click)="changeCard('cliente')"><strong>Datos personales</strong></button>
+                        <button class="list-group-item" (click)="changeCard('pedidos')"><strong>Pedidos</strong></button>
+                        <button class="list-group-item" (click)="changeCard('crud')"><strong>Crud</strong></button>
                     </div>
-                </ng-template>
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th *ngFor="let col of columns">
-                            {{col.header}}
-                        </th>
-                    </tr>
-                    <tr>
-                        <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                            <input *ngSwitchCase="'Codigo Pedido'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                            
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData let-columns="columns">
-                    <tr [pSelectableRow]="rowData" >
-                        <td *ngFor="let col of columns"  >
-                            <p *ngIf="col.field != 'estado'" >{{rowData[col.field]}}</p>
-                            <p *ngIf="col.field == 'estado'" >{{rowData[col.field].estado}}</p>
-                            
-                        </td>
-                        <td>
-                            <!-- <button class="btn btn-info" [routerLink]="['/pedido',rowData['codpedido']]">Ver mas</button> -->
-                            <p-splitButton label="Ver" value="rowData['codpedido']" icon="pi pi-eye" (onClick)="Verpedido(rowData['codpedido'])" [model]="devueltaItem(rowData)"></p-splitButton>
-                        </td>
-                    </tr>
-                </ng-template>
-              </p-table>
-          </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 card-body" *ngIf="card=='pedidos'">
+            <div class="row">
+                <h2>{{titulo}}</h2>
+                <p-table #dt [columns]="cols" [value]="listapedido" [paginator]="true" [paginator]="true" [rows]="10">
+                    <ng-template pTemplate="caption">
+                        <div style="text-align: right">
+                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                style="width:auto">
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                                <input *ngSwitchCase="'Codigo Pedido'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr [pSelectableRow]="rowData">
+                            <td *ngFor="let col of columns">
+                                <p *ngIf="col.field != 'estado'">{{rowData[col.field]}}</p>
+                                <p *ngIf="col.field == 'estado'">{{rowData[col.field].estado}}</p>
+
+                            </td>
+                            <td>
+                                <!-- <button class="btn btn-info" [routerLink]="['/pedido',rowData['codpedido']]">Ver mas</button> -->
+                                <p-splitButton label="Ver" value="rowData['codpedido']" icon="pi pi-eye" (onClick)="Verpedido(rowData['codpedido'])"
+                                    [model]="devueltaItem(rowData)"></p-splitButton>
+                                <button class=" ml-1 btn btn-warning" *ngIf="rowData['estado'].estado == 'Pendiente de modificación'"
+                                    (click)="obtenerModificacion(rowData['codpedido'])"><i class="pi pi-exclamation-triangle"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
         </div>
         <div class="col-10 card-body" *ngIf="card=='crud'">
             <div class="row">
                 <h2> Datos :</h2>
-              </div>
-          </div>
-          <div class="col-10 card-body" *ngIf="card=='cliente'">
-              <div class="row">
-                  <h2 class="col-12"> Datos Personales :</h2>
+            </div>
+        </div>
+        <div class="col-10 card-body" *ngIf="card=='cliente'">
+            <div class="row">
+                <h2 class="col-12"> Datos Personales :</h2>
 
-                  <form class="col-12" [formGroup]="formRegistro" (change)="VerEstado()" (ngSubmit)="guardarUsuario()" >
-                    <label for=""> Usuario: </label> 
-                <div  class="form-group input-group">
-                  <div class="input-group-prepend">
-                      <span class="input-group-text"> <i class="pi pi-tag"></i> </span>
-                   </div>
-                      <input disabled [(ngModel)]="usuario.usuario" id="usuario" formControlName="usuario" class="form-control" placeholder="Usuario" type="text" >
-                      
-                  </div>
+                <form class="col-12" [formGroup]="formRegistro" (change)="VerEstado()" (ngSubmit)="guardarUsuario()">
+                    <label for=""> Usuario: </label>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="pi pi-tag"></i> </span>
+                        </div>
+                        <input disabled [(ngModel)]="usuario.usuario" id="usuario" formControlName="usuario" class="form-control"
+                            placeholder="Usuario" type="text">
 
-                  
-                  <label for=""> Nombre: </label> 
-                <div class="form-group input-group">
-                  <div class="input-group-prepend">
-                      <span class="input-group-text"> <i class="pi pi-user"></i> </span>
-                   </div>
-                      <input  id="nombre" [(ngModel)]="usuario.nombre" formControlName="nombre" class="form-control" placeholder="Nombre" type="text" >
-                      
-                  </div>
-            
-                  <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.nombre.pristine == false && formRegistro.controls.nombre.invalid">
-                    Campo obligatorio
-                  </div>
-            
-                  <label for=""> Apellidos:</label> 
-                  <div class="form-group input-group">
-                        <input id="apellidos" [(ngModel)]="usuario.apellidos"  formControlName="apellidos" class="form-control" placeholder="Apellidos" type="text">
+                    </div>
+
+
+                    <label for=""> Nombre: </label>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="pi pi-user"></i> </span>
+                        </div>
+                        <input id="nombre" [(ngModel)]="usuario.nombre" formControlName="nombre" class="form-control"
+                            placeholder="Nombre" type="text">
+
+                    </div>
+
+                    <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.nombre.pristine == false && formRegistro.controls.nombre.invalid">
+                        Campo obligatorio
+                    </div>
+
+                    <label for=""> Apellidos:</label>
+                    <div class="form-group input-group">
+                        <input id="apellidos" [(ngModel)]="usuario.apellidos" formControlName="apellidos" class="form-control"
+                            placeholder="Apellidos" type="text">
                     </div> <!-- form-group// -->
                     <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.apellidos.pristine == false && formRegistro.controls.apellidos.invalid">
-                      Campo obligatorio
+                        Campo obligatorio
                     </div>
-                    <label for=""> Telefono:</label> 
-                  <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">  <i class="pi pi-mobile"></i> </span>
-                     </div>
-                        <input id="telefono" [(ngModel)]="usuario.telefono" formControlName="telefono" class="form-control" placeholder="Telefono" type="text">
+                    <label for=""> Telefono:</label>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="pi pi-mobile"></i> </span>
+                        </div>
+                        <input id="telefono" [(ngModel)]="usuario.telefono" formControlName="telefono" class="form-control"
+                            placeholder="Telefono" type="text">
                     </div>
                     <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.telefono.pristine == false && formRegistro.controls.telefono.invalid">
-                      Porfavor rellene el campo con numeros, hasta un maximo de 9.
+                        Porfavor rellene el campo con numeros, hasta un maximo de 9.
                     </div>
-                    <label for=""> Correo electronico:</label> 
-                  <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"> <i class="pi pi-envelope"></i> </span>
-                   </div>
-                      <input id="email" [(ngModel)]="usuario.correo"  formControlName="correo" class="form-control" placeholder="Correo electrónico" type="email">
-                  </div> <!-- form-group// -->
-                  <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.correo.pristine == false && formRegistro.controls.correo.invalid">
-                    Campo obligatorio , porfavor complete el campo con el formato correcto ej:imventadillo@gmail.com
-                  </div>
-                <label for=""> Cambiar contraseña:</label> 
-                  <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"> <i class="pi pi-key"></i> </span>
-                  </div>
-                      <input id="password" [(ngModel)]="usuario.contrasena"  formControlName="contrasena" class="form-control" placeholder="Ejemplo: Fcv24-34" type="password">
-                  </div> <!-- form-group// -->
-                  <!-- <label for=""> Repita la contraseña:</label> 
+                    <label for=""> Correo electronico:</label>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="pi pi-envelope"></i> </span>
+                        </div>
+                        <input id="email" [(ngModel)]="usuario.correo" formControlName="correo" class="form-control"
+                            placeholder="Correo electrónico" type="email">
+                    </div> <!-- form-group// -->
+                    <div class="alert alert-danger" role="alert" *ngIf="formRegistro.controls.correo.pristine == false && formRegistro.controls.correo.invalid">
+                        Campo obligatorio , porfavor complete el campo con el formato correcto
+                        ej:imventadillo@gmail.com
+                    </div>
+                    <label for=""> Cambiar contraseña:</label>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="pi pi-key"></i> </span>
+                        </div>
+                        <input id="password" [(ngModel)]="usuario.contrasena" formControlName="contrasena" class="form-control"
+                            placeholder="Ejemplo: Fcv24-34" type="password">
+                    </div> <!-- form-group// -->
+                    <!-- <label for=""> Repita la contraseña:</label> 
                   <div class="form-group input-group">
                     
                       <input id="password2"  formControlName="contrasena2" class="form-control" placeholder="" type="password" >
                   </div> form-group//   -->
-                  <label for=""> Direccion:</label> 
-                  <div class="form-group input-group">
-                    
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="pi pi-pencil"></i> </span>
-                     </div>
-                        <input id="direccion" [(ngModel)]="usuario.dir.direc" formControlName="direccion" class="form-control" placeholder="" type="text">
-                    </div> <!-- form-group// -->                                   
-                  <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block" [disabled]="!formRegistro.valid"> Modificar cuenta  <i class="pi pi-save"></i></button>
-                  </div> <!-- form-group// -->                                                                      
-              </form>
-                </div>
+                    <label for=""> Direccion:</label>
+                    <div class="form-group input-group">
+
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="pi pi-pencil"></i> </span>
+                        </div>
+                        <input id="direccion" [(ngModel)]="usuario.dir.direc" formControlName="direccion" class="form-control"
+                            placeholder="" type="text">
+                    </div> <!-- form-group// -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block" [disabled]="!formRegistro.valid">
+                            Modificar cuenta <i class="pi pi-save"></i></button>
+                    </div> <!-- form-group// -->
+                </form>
             </div>
-      </div>
-      
+        </div>
     </div>
-  <button class="btn btn-danger">volver</button>
+
+</div>
+<button class="btn btn-danger">volver</button>
 
 
 
-  <p-dialog header="Godfather I" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}"
+<p-dialog header="Modificacion" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}"
     [minY]="70" [maximizable]="true" [baseZIndex]="10000">
-    <div class="md-form">
-      <textarea id="textarea" class="md-textarea form-control" rows="3"></textarea>
-      <label for="form7">Rellene una breve descripcion de los cambio que quieres realizar</label>
+    <div *ngIf="editable">
+        <div class="md-form">
+            <textarea id="textarea" class="md-textarea form-control" rows="3"></textarea>
+            <label for="form7">Rellene una breve descripcion de los cambio que quieres realizar</label>
+        </div>
+
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" (click)="textoEnsena()" label="Enviar"></button>
+            <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Cancelar" class="ui-button-secondary"></button>
+        </p-footer>
+
+    </div>
+    <div *ngIf="!editable">
+        <div class="md-form">
+            <label for="form7">Solicitud de del cliente</label>
+            <p>{{Modificacion.textoModificacion}}</p>
+
+        </div>
+
+        <p-footer>
+            <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Cerrar" class="ui-button-secondary"></button>
+        </p-footer>
+
     </div>
 
-    <p-footer>
-      <button type="button" pButton icon="pi pi-check" (click)="textoEnsena()" label="Enviar"></button>
-      <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Cancelar" class="ui-button-secondary"></button>
-    </p-footer>
-  </p-dialog>
+</p-dialog>

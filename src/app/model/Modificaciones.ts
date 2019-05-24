@@ -3,6 +3,6 @@ import { Pedidos } from './Pedidos';
 export class Modificaciones {
     codigo_modificacion: number;
     modificado: boolean;
-    texto_modificacion: string;
+    textoModificacion: string;
     codpedido: Pedidos;
 }

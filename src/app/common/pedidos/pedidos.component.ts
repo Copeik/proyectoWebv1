@@ -13,161 +13,186 @@ import { Modificaciones } from 'src/app/model/Modificaciones';
   styleUrls: ['./pedidos.component.scss']
 })
 export class PedidosComponent implements OnInit {
-  paginaActual =1;
-  listapedido:Array<Pedidos>=[];
-  usuario:Cliente;
-  card:string = "pedidos";
-  titulo=" Tus pedidos :";
+  paginaActual = 1;
+  listapedido: Array<Pedidos> = [];
+  usuario: Cliente;
+  card: string = "pedidos";
+  titulo = " Tus pedidos :";
   formRegistro: FormGroup;
+  Modificacion: Modificaciones;
   cols = [
     { field: 'codpedido', header: 'Codigo Pedido' },
     { field: 'descripcion', header: 'Descripcion' },
     { field: 'estado', header: 'Estado' },
     { field: 'total', header: 'Total' }
-];
-items = [];
-codpedido;
-
-devueltaItem(algo){
-  if(this.usuario.rol.id_rol==3){
-  return this.items = [
-    {label: 'Modificar', icon: 'pi pi-refresh', command: ($event) => {
-      console.log()
-     this.router.navigate(["/modificarpedido/"+algo])
-    }},
-    {label: 'Eliminar', icon: 'pi pi-times', command: () => {
-        this.deletePedido(algo);
-    }}
   ];
-}else{
-  return this.items = [
-    {label: 'Solicitar modificacion', icon: 'pi pi-refresh', command: ($event) => {
-      this.showDialog(algo);
-    }},
-    {label: 'Cancelar pedido', icon: 'pi pi-times', command: () => {
-      this.showDialog(algo);
-    }}
-  ];
-}
+  items = [];
+  codpedido;
+  editable = true;
+  devueltaItem(algo) {
+    if (this.usuario.rol.id_rol == 3) {
+      return this.items = [
+        {
+          label: 'Modificar', icon: 'pi pi-refresh', command: ($event) => {
+            console.log()
+            this.router.navigate(["/modificarpedido/" + algo])
+          }
+        },
+        {
+          label: 'Eliminar', icon: 'pi pi-times', command: () => {
+            this.deletePedido(algo);
+          }
+        }
+      ];
+    } else {
+      return this.items = [
+        {
+          label: 'Solicitar modificacion', icon: 'pi pi-refresh', command: ($event) => {
+            this.showDialog(algo);
+          }
+        },
+        {
+          label: 'Cancelar pedido', icon: 'pi pi-times', command: () => {
+            this.showDialog(algo);
+          }
+        }
+      ];
+    }
 
 
 
-}
-VerEstado(){
-  console.log(this.formRegistro);
-  
-}
+  }
+  VerEstado() {
+    console.log(this.formRegistro);
+
+  }
 
 
-  constructor(private authenticationService:AuthenticationService,private fb: FormBuilder,private pedidosService:PedidosService,private router:Router) { 
+  constructor(private authenticationService: AuthenticationService, private fb: FormBuilder, private pedidosService: PedidosService, private router: Router) {
     this.formRegistro = this.fb.group({
-      usuario:['',Validators.required],
-      nombre:['',Validators.required],
-      apellidos:['',Validators.required],
-      correo:['',Validators.compose([
+      usuario: ['', Validators.required],
+      nombre: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      correo: ['', Validators.compose([
         Validators.required,
         Validators.email
       ])],
-      telefono:['',Validators.compose([
+      telefono: ['', Validators.compose([
         Validators.required,
         Validators.pattern("[0-9]*"),
         Validators.maxLength(9)
       ])],
-      contrasena:['',Validators.required],
-      direccion:['',Validators.required],
+      contrasena: ['', Validators.required],
+      direccion: ['', Validators.required],
     })
 
   }
-  
+
   ngOnInit() {
-    this.usuario=JSON.parse(sessionStorage.getItem("Usuario"));
+    this.usuario = JSON.parse(sessionStorage.getItem("Usuario"));
     console.log(this.usuario);
-    if (this.usuario.rol.id_rol==3) {
+    if (this.usuario.rol.id_rol == 3) {
       this.getAllPedidos();
-      this.titulo="Lista de pedidos :"
-    }else if(this.usuario.rol.id_rol==1){
-      
+      this.titulo = "Lista de pedidos :"
+    } else {
+
       this.getpedidosUser(this.usuario.id);
     }
-      
+
   }
 
   display: boolean = false;
 
   showDialog(codpedido) {
     this.display = true;
-    this.codpedido=codpedido;
+    this.editable = true;
+    this.codpedido = codpedido;
+  }
+  showDialog2(codpedido) {
+    this.display = true;
+    this.editable = false;
+    this.codpedido = codpedido;
+
   }
   textoEnsena() {
     var a = (<HTMLInputElement>document.getElementById("textarea")).value
-    console.log("hola")
-    if(a.trim()!=""){
+    console.log(a)
+    if (a.trim() != "") {
       console.log(a)
       var ped;
-      ped={codpedido:this.codpedido.codpedido}
+      ped = { codpedido: this.codpedido.codpedido }
       var modificacion = new Modificaciones();
-      modificacion.codpedido=ped;
-      modificacion.modificado=false;
-      
-      modificacion.texto_modificacion=a;
+      modificacion.codpedido = ped;
+      modificacion.modificado = false;
+
+      modificacion.textoModificacion = a;
       console.log(modificacion)
-      this.pedidosService.postModificacion(modificacion).subscribe(res =>{
+      this.pedidosService.postModificacion(modificacion).subscribe(res => {
         console.log(res);
+        a = (<HTMLInputElement>document.getElementById("textarea")).value = ""
       })
     }
-    this.display=false
-    var a = (<HTMLInputElement>document.getElementById("textarea")).value=""
-  }
-  cancelarM(){
-    this.display=false
-    var a = (<HTMLInputElement>document.getElementById("textarea")).value=""
+    this.display = false
+
   }
 
-  guardarUsuario(){
+  obtenerModificacion(codpedido) {
+    this.pedidosService.getModificacion(codpedido).subscribe(res => {
+      console.log(res)
+      this.Modificacion = res;
+      this.showDialog2(codpedido);
+    });
+  }
+  cancelarM() {
+    this.display = false
+    var a = (<HTMLInputElement>document.getElementById("textarea")).value = ""
+  }
+
+  guardarUsuario() {
     //Guardado de datos de usuario
-  console.log(this.usuario);
-        this.authenticationService.guardarUsuario(this.usuario);
-        this.router.navigate(["/login"]);
-        alert("Registrado con exito :D")
-  }
-  
-
-  getpedidosUser(id){
-   this.pedidosService.getallByCliente(id).subscribe(res =>{
-     this.listapedido = res;
-     console.log(res);
-   });
+    console.log(this.usuario);
+    this.authenticationService.guardarUsuario(this.usuario);
+    this.router.navigate(["/login"]);
+    alert("Registrado con exito :D")
   }
 
-  getAllPedidos(){
-    this.pedidosService.getallByAdmin().subscribe(res =>{
+
+  getpedidosUser(id) {
+    this.pedidosService.getallByCliente(id).subscribe(res => {
       this.listapedido = res;
       console.log(res);
     });
-   }
-
-
-   deletePedido(algo){
-
-      this.pedidosService.deleteEspecificaciones(algo);
-      setTimeout(() => {
-        this.pedidosService.deletePedido(algo).subscribe( async res =>{
-          console.log(res);
-          if (res) {
-            for (let i = 0; i < this.listapedido.length; i++) {
-               algo.codpedido = this.listapedido[i].codpedido;
-              this.listapedido.splice(i, 1);
-            }
-          }
-        });
-      }, 100);
-      
-   }
-  changeCard(any){
-    this.card=any;
   }
-  Verpedido(number){
-    this.router.navigate(["/pedido/"+number])
+
+  getAllPedidos() {
+    this.pedidosService.getallByAdmin().subscribe(res => {
+      this.listapedido = res;
+      console.log(res);
+    });
+  }
+
+
+  deletePedido(algo) {
+
+    this.pedidosService.deleteEspecificaciones(algo);
+    setTimeout(() => {
+      this.pedidosService.deletePedido(algo).subscribe(async res => {
+        console.log(res);
+        if (res) {
+          for (let i = 0; i < this.listapedido.length; i++) {
+            algo.codpedido = this.listapedido[i].codpedido;
+            this.listapedido.splice(i, 1);
+          }
+        }
+      });
+    }, 100);
+
+  }
+  changeCard(any) {
+    this.card = any;
+  }
+  Verpedido(number) {
+    this.router.navigate(["/pedido/" + number])
   }
 
 }
