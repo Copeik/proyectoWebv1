@@ -27,6 +27,22 @@
 
                 </div>
               </div>
+              <div class="input-group mt-3 col-6" >
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Estado</label>
+                </div>
+                <select [(ngModel)]="Pedido.estado.id" class="custom-select" id="inputGroupSelect01">
+                  <option value="1">Nuevo pedido</option>
+                  <option value="2">En proceso</option>
+                  <option value="3">Listo para envio</option>
+                  <option value="4">En envio</option>
+                  <option value="5">Finalizado</option>
+                  <option value="6">Cancelado</option>
+                  <option value="7">En modificacion</option>
+                  
+                </select>
+              </div>
+              
               <p style="float: right">Total : {{Pedido.total}}</p>
               <button class="mt-5 btn btn-secondary ml-2" (click)="confirm()" style="float: right" >Guardar</button>
               <button class="mt-5 btn btn-secondary" [routerLink]="['/pedidos']" routerLinkActive="router-link-active"  style="float: right">Cancelar</button>

@@ -1,16 +1,16 @@
 import { PedidosService } from './../../services/pedidos.service';
 import { AuthenticationService } from './../../services/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ArticulosService } from 'src/app/services/articulos.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Articulos } from 'src/app/model/Articulo';
-import { Form, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { CarritoComponent } from 'src/app/common/carrito/carrito.component';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { Alert } from 'selenium-webdriver';
 import {MessageService} from 'primeng/api';
-
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-catalogo',
@@ -28,7 +28,10 @@ export class CatalogoComponent implements OnInit {
   base64textString:string;
   isError:boolean = false;
   tiposlist=[];
-  constructor(private articulosService:ArticulosService,private _sanitizer: DomSanitizer,private messageService: MessageService,private authService:AuthenticationService,private _carritoService:CarritoService) { }
+  imagen;
+  formArticulos: FormGroup;
+  
+  constructor(private fb: FormBuilder,private articulosService:ArticulosService,private _sanitizer: DomSanitizer,private messageService: MessageService,private authService:AuthenticationService,private _carritoService:CarritoService) { }
 
   ngOnInit() {
     this.authService.getuser();
@@ -42,8 +45,29 @@ export class CatalogoComponent implements OnInit {
       
     }
     
+    
+    this.formArticulos = this.fb.group({
+      articulo:['',Validators.required],
+      descripcion:['',Validators.required],
+      precio:['',Validators.compose([
+        Validators.required,
+        Validators.pattern("[0-9]*"),
+        Validators.maxLength(9)
+      ])],
+      tipo:['',Validators.compose([
+        Validators.required
+      ])],
+      cantidad:['',Validators.compose([
+        Validators.required,
+        Validators.pattern("[0-9]*"),
+        Validators.maxLength(9)
+      ])],
+      fecha:['',Validators.required],
+      imagen:['',Validators.required],
+    })
   }
 
+  
   getAllTipos(){
    this._carritoService.getTipos().subscribe(res=>{
      this.tiposlist = res
@@ -106,6 +130,9 @@ export class CatalogoComponent implements OnInit {
     this.articulosService.postArticulo(articulo).subscribe(res=>{
       console.log(res);
       this.isError=false;
+      this.formArticulos.reset()
+      this.imagen=""
+      this.messageService.add({severity:'success', summary:'Exito!', detail:'Articulo guardado en la base de datos'});
     },error =>{
       this.isError=true
       setTimeout(()=>{
@@ -114,11 +141,13 @@ export class CatalogoComponent implements OnInit {
     });
     
   }
-
+  Verestado(){
+    console.log(this.formArticulos)
+  }
   handleFileSelect(evt){
     var files = evt.target.files;
     var file = files[0];
-
+    this.imagen=file.name;
   if (files && file) {
       var reader = new FileReader();
 

@@ -10,7 +10,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
   styleUrls: ['./registro.component.scss']
 })
 export class RegistroComponent implements OnInit {
-formRegistro: FormGroup;
+formRegistro: FormGroup = null;
 equalPassword:boolean = false;
 usuarioUnico:boolean = null;
 spinner= false;

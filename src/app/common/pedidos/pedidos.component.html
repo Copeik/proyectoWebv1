@@ -144,6 +144,7 @@
                         <input id="direccion" [(ngModel)]="usuario.dir.direc" formControlName="direccion" class="form-control"
                             placeholder="" type="text">
                     </div> <!-- form-group// -->
+                    <p-messages [(value)]="msgs"></p-messages>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block" [disabled]="!formRegistro.valid">
                             Modificar cuenta <i class="pi pi-save"></i></button>
@@ -174,8 +175,8 @@
     </div>
     <div *ngIf="!editable">
         <div class="md-form">
-            <label for="form7">Solicitud de del cliente</label>
-            <p>{{Modificacion.textoModificacion}}</p>
+            <strong for="form7">Solicitud de del cliente</strong>
+            <p class="mb-5">{{Modificacion.textoModificacion}}</p>
 
         </div>
 

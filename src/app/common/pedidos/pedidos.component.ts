@@ -7,12 +7,15 @@ import { Router } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Modificaciones } from 'src/app/model/Modificaciones';
+import {MessagesModule} from 'primeng/messages';
+
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.component.html',
   styleUrls: ['./pedidos.component.scss']
 })
 export class PedidosComponent implements OnInit {
+  msgs=[];
   paginaActual = 1;
   listapedido: Array<Pedidos> = [];
   usuario: Cliente;
@@ -35,7 +38,7 @@ export class PedidosComponent implements OnInit {
         {
           label: 'Modificar', icon: 'pi pi-refresh', command: ($event) => {
             console.log()
-            this.router.navigate(["/modificarpedido/" + algo])
+            this.router.navigate(["/modificarpedido/" + algo.codpedido])
           }
         },
         {
@@ -95,7 +98,6 @@ export class PedidosComponent implements OnInit {
       this.getAllPedidos();
       this.titulo = "Lista de pedidos :"
     } else {
-
       this.getpedidosUser(this.usuario.id);
     }
 
@@ -127,10 +129,18 @@ export class PedidosComponent implements OnInit {
 
       modificacion.textoModificacion = a;
       console.log(modificacion)
-      this.pedidosService.postModificacion(modificacion).subscribe(res => {
+
+      this.pedidosService.deleteModificacion(modificacion).subscribe(res =>{
         console.log(res);
-        a = (<HTMLInputElement>document.getElementById("textarea")).value = ""
+        if (res==true) {
+          this.pedidosService.postModificacion(modificacion).subscribe(res => {
+            console.log(res);
+            (<HTMLInputElement>document.getElementById("textarea")).value = ""
+          })
+        }
+        
       })
+      
     }
     this.display = false
 
@@ -152,8 +162,8 @@ export class PedidosComponent implements OnInit {
     //Guardado de datos de usuario
     console.log(this.usuario);
     this.authenticationService.guardarUsuario(this.usuario);
-    this.router.navigate(["/login"]);
-    alert("Registrado con exito :D")
+    this.msgs.push({severity:'success', summary:'Guardado', detail:'Guardado con exito,para que sean visibles los cambios reinicia la pagina'});
+
   }
 
 

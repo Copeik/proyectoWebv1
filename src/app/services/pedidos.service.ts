@@ -56,6 +56,11 @@ export class PedidosService {
         })
         this.router.navigate(["/pedidos"])
       }
+      if(ped.estado.id != 7){
+        var modificacion = new Modificaciones();
+      modificacion.codpedido=ped;
+      this.deleteModificacion(modificacion).subscribe(res =>{console.log("MODIFICACIONES ELIMINADAS")})
+      }
     })
 
 
@@ -98,6 +103,10 @@ export class PedidosService {
 
   postModificacion(modificacion: Modificaciones) {
     return this.http.post<any>(` http://localhost:8090/v1/modificaciones`, modificacion, { headers: this.header.append("Authorization", "Bearer " + this.token) });
+  }
+
+  deleteModificacion(modificacion: Modificaciones) {
+    return this.http.post<any>(` http://localhost:8090/v1/modificacionesD`, modificacion, { headers: this.header.append("Authorization", "Bearer " + this.token) });
   }
 
   getModificacion(codpedido) {

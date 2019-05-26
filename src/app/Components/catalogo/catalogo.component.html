@@ -1,5 +1,6 @@
-<p-toast></p-toast>
+
 <div class="container-fluid" >
+    <p-toast></p-toast>
   <div class="row mb-2 mt-2" > <div class="col-12"><button *ngIf="admin" style="float: right; margin: auto" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
       Nuevo articulo
     </button></div></div> 
@@ -55,8 +56,8 @@
 <button class="btn btn-info justify-content-center" *ngIf="admin" (click)="creartipo=!creartipo">Añadir tipo/categoria</button>
 
 </div>
-  <div class="col-lg-9 col-md-12"><div class="row">
-      <div class="mt-1 mr-1 w-25" *ngFor="let item of items | paginate:{itemsPerPage:9 , currentPage: paginaActual};  let i = index" >
+  <div class="col-lg-9 col-md-12"><div class="row ">
+      <div class="mt-1 mr-1 w-25 col-12 col-md-3" *ngFor="let item of items | paginate:{itemsPerPage:6 , currentPage: paginaActual};  let i = index" >
       
           <div  class="card" style="margin:auto; margin-bottom:1%;">
               <img  class="card-img-top w-100" [src]="_sanitizer.bypassSecurityTrustResourceUrl(item.imagen)" alt="Card image cap">
@@ -73,19 +74,20 @@
     
   </div>
  
-    <div class="col-7" >
+    <div class="col-md-5  col-sm-2" >
         
     
     </div>
-    <div class="col-4" ><pagination-controls  (pageChange)="paginaActual = $event"></pagination-controls></div>
-    <div class="col-1"></div>
+    <div class="col-md-4 col-sm-8" ><pagination-controls  (pageChange)="paginaActual = $event"></pagination-controls></div>
+    <div class="col-md-3  col-sm-2"></div>
     
   </div></div>
 
 
 
 <!--Modal-->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" #childModal  id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <p-toast></p-toast>
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -95,26 +97,26 @@
             </button>
           </div>
           <div class="modal-body">
-            <form #formArticulo="ngForm">
+            <form [formGroup]="formArticulos" (change)="Verestado()" (ngSubmit)="guardarArticulo()" >
                 <div class="alert alert-danger" role="alert" *ngIf="isError">
                     Rellene los campos marcados con * , son los campos obligatorios
                   </div>
               <div class="form-group">
                 <label for="nombreArticulo">Nombre articulo *</label>
-                <input type="text" class="form-control" id="nombreArticulo" aria-describedby="artivulo" placeholder="Ej:Petunias" required>
+                <input type="text" class="form-control" id="nombreArticulo" formControlName="articulo" placeholder="Ej:Petunias">
                 <small class="form-text text-muted">Este es el nombre que veran los clientes cuando accedan a este articulo</small>
               </div>
               <div class="form-group">
                 <label for="descripcionArticulo">Descripción</label>
-                <input type="text" class="form-control" id="descripcionArticulo" placeholder="Ej: Las petunias son debiles...">
+                <input type="text" class="form-control" id="descripcionArticulo" formControlName="descripcion" placeholder="Ej: Las petunias son debiles...">
               </div>
               <div class="form-group">
                 <label for="precioArticulo">Precio *</label>
-                <input type="number" class="form-control" id="precioArticulo" placeholder="Ej: Las petunias son debiles..." required>
+                <input type="number" class="form-control" id="precioArticulo" formControlName="precio" placeholder="Ej: Las petunias son debiles..." required>
               </div>
               <div class="form-group">
                 <label for="tipoArticulo">Tipo</label>
-                <select id="tipoArticulo" class="custom-select" required>
+                <select id="tipoArticulo" formControlName="tipo" class="custom-select" required>
                   <option value="{{item.codigo_t}}" *ngFor="let item of tiposlist">
                     {{item.nombre}}
                   </option>
@@ -122,26 +124,27 @@
               </div>
               <div class="form-group">
                 <label for="cantidadArticulo" >Cantidad </label>
-                <input type="number" class="form-control" id="cantidadArticulo" placeholder="Ej: Las petunias son debiles..." required>
+                <input type="number" formControlName="cantidad" class="form-control" id="cantidadArticulo" placeholder="Ej: Las petunias son debiles..." required>
               </div>
               <div class="form-group">
                 <label for="fechaArticulo">Fecha de caducidad</label>
-                <input type="text" class="form-control" id="fechaArticulo" placeholder="Ej: Las petunias son debiles..." required>
+                <input type="text" formControlName="fecha" class="form-control" id="fechaArticulo" placeholder="Ej: Las petunias son debiles..." required>
               </div>
               <div class="form-group">
                   <label for="">Selecciona la imagen del articulo *</label>
                   <div class="custom-file">
                   
-                  <input (change)="handleFileSelect($event)" type="file" class="custom-file-input" id="imagenArticulo" aria-describedby="imagenArticulo">
-                  <label class="custom-file-label" for="imagenArticulo">Choose file</label>
+                  <input (change)="handleFileSelect($event)" formControlName="imagen" type="file" class="custom-file-input" id="imagenArticulo" aria-describedby="imagenArticulo">
+                  <label class="custom-file-label" for="imagenArticulo">{{imagen}}</label>
                   </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!formArticulos.valid">Guardar</button>
               </div>
             </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary" (click)="guardarArticulo(formArticulo)">Guardar</button>
-          </div>
+          
         </div>
       </div>
     </div>

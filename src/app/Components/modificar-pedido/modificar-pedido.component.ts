@@ -31,6 +31,7 @@ export class ModificarPedidoComponent implements OnInit {
     
   }
   comprar(){
+    
     this.pedidosService.update(this.Pedido,this.listaEspecificaciones);
   }
 
