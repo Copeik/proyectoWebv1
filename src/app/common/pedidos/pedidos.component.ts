@@ -94,13 +94,16 @@ export class PedidosComponent implements OnInit {
   ngOnInit() {
     this.usuario = JSON.parse(sessionStorage.getItem("Usuario"));
     console.log(this.usuario);
+    this.cargarpedidos();
+
+  }
+  cargarpedidos(){
     if (this.usuario.rol.id_rol == 3) {
       this.getAllPedidos();
       this.titulo = "Lista de pedidos :"
     } else {
       this.getpedidosUser(this.usuario.id);
     }
-
   }
 
   display: boolean = false;
@@ -162,7 +165,7 @@ export class PedidosComponent implements OnInit {
     //Guardado de datos de usuario
     console.log(this.usuario);
     this.authenticationService.guardarUsuario(this.usuario);
-    this.msgs.push({severity:'success', summary:'Guardado', detail:'Guardado con exito,para que sean visibles los cambios reinicia la pagina'});
+    this.msgs.push({severity:'success', summary:'Guardado', detail:'Guardado con exito,para que sean visibles los cambios reinicia la pagina '});
 
   }
 
@@ -191,8 +194,10 @@ export class PedidosComponent implements OnInit {
         if (res) {
           for (let i = 0; i < this.listapedido.length; i++) {
             algo.codpedido = this.listapedido[i].codpedido;
-            this.listapedido.splice(i, 1);
+
+            console.log(this.listapedido)
           }
+          this.cargarpedidos();
         }
       });
     }, 100);

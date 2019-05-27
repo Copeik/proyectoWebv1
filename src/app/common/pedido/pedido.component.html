@@ -5,8 +5,8 @@
       <div id="company" class="clearfix">
         <div>Nombre de la compañia</div>
         <div>Somiplantas,<br /></div>
-        <div>direccion***</div>
-        <div><a href="mailto:company@example.com">insertar correo**</a></div>
+        <div>Av. José Laguillo, 27, local 2, 41003 Sevilla</div>
+        <div><a href="mailto:company@example.com">somiplanta@gmail.com</a></div>
       </div>
       <div id="project">
         <div><span>Tienda</span> Somiplantas </div>
@@ -38,6 +38,12 @@
         </tbody>
       </table>
       <h4 class="ml-3" style="float: right">Total: {{Pedido.total}}€</h4>
+
+      <div class="mt-5 card w-100">
+        <h5 class="mt-2 ml-2">Descripcion:</h5>
+        <p  class="mt-2 ml-2">{{Pedido.descripcion}}</p>
+      </div>
+      
       <div class="mt-5" id="notices">
         <div>NOTICE:</div>
         <div class="notice">Para cualquier problema contactar con el telefono 691664534</div>
