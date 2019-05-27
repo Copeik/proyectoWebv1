@@ -12,7 +12,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-10 card-body" *ngIf="card=='pedidos'">
+        <div class="d-xl-none d-lg-none d-sm-block d-xs-block btn-group mx-auto  p-3  text-white text-center" role="group"
+            aria-label="Basic example">
+            <button class="btn btn-secondary" (click)="changeCard('cliente')"><strong>Datos personales</strong></button>
+            <button class="btn btn-secondary" (click)="changeCard('pedidos')"><strong>Pedidos</strong></button>
+            <button class="btn btn-secondary" (click)="changeCard('crud')"><strong>Crud</strong></button>
+        </div>
+        <div class="col-lg-10 col-md-12 card-body" *ngIf="card=='pedidos'">
             <div class="row">
                 <h2>{{titulo}}</h2>
                 <p-table #dt [columns]="cols" [value]="listapedido" [paginator]="true" [paginator]="true" [rows]="10">
@@ -56,12 +62,12 @@
                 </p-table>
             </div>
         </div>
-        <div class="col-10 card-body" *ngIf="card=='crud'">
+        <div class="col-lg-10 col-md-12 card-body" *ngIf="card=='crud'">
             <div class="row">
                 <h2> Datos :</h2>
             </div>
         </div>
-        <div class="col-10 card-body" *ngIf="card=='cliente'">
+        <div class="col-lg-10 col-md-12 card-body" *ngIf="card=='cliente'">
             <div class="row">
                 <h2 class="col-12"> Datos Personales :</h2>
 
@@ -155,7 +161,7 @@
     </div>
 
 </div>
-<button class="btn btn-danger">volver</button>
+
 
 
 
@@ -181,7 +187,7 @@
         </div>
 
         <p-footer>
-            <button type="button" pButton  (click)="display=false" label="Cerrar" class="ui-button-secondary"></button>
+            <button type="button" pButton (click)="display=false" label="Cerrar" class="ui-button-secondary"></button>
         </p-footer>
 
     </div>

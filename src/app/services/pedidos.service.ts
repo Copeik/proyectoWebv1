@@ -56,10 +56,10 @@ export class PedidosService {
         })
         this.router.navigate(["/pedidos"])
       }
-      if(ped.estado.id != 7){
+      if (ped.estado.id != 7) {
         var modificacion = new Modificaciones();
-      modificacion.codpedido=ped;
-      this.deleteModificacion(modificacion).subscribe(res =>{console.log("MODIFICACIONES ELIMINADAS")})
+        modificacion.codpedido = ped;
+        this.deleteModificacion(modificacion).subscribe(res => { console.log("MODIFICACIONES ELIMINADAS") })
       }
     })
 
@@ -73,7 +73,7 @@ export class PedidosService {
   }
 
   getallByCliente(id) {
-    return this.http.get<any>(`http://localhost:8090/v1/pedidos?codcliente=` + id, { headers: this.header.append("Authorization", "Bearer " + this.token) });
+    return this.http.get<any>(`http://localhost:8090/v1/pedidoscliente?cod_cliente=` + id, { headers: this.header.append("Authorization", "Bearer " + this.token) });
   }
 
   getallByPedido(id) {
