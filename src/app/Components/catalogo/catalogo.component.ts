@@ -10,7 +10,6 @@ import { CarritoComponent } from 'src/app/common/carrito/carrito.component';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { Alert } from 'selenium-webdriver';
 import {MessageService} from 'primeng/api';
-import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-catalogo',
