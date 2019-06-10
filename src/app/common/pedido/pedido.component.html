@@ -16,7 +16,7 @@
         <div *ngIf="fecha"><span>Fecha</span>{{fecha}}</div>
       </div>
     </header>
-    <main>
+    <div class="table-responsive">
       <table>
         <thead>
           <tr>
@@ -37,6 +37,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
       <h4 class="ml-3" style="float: right">Total: {{Pedido.total}}€</h4>
 
       <div class="mt-5 card w-100">
@@ -48,14 +49,14 @@
         <div>NOTICE:</div>
         <div class="notice">Para cualquier problema contactar con el telefono 691664534</div>
       </div>
-    </main>
+    
 
 
   </div>
 
   <div style="margin-top: 15%">
-    <a style="margin-top: 20%" (click)="downloadPDF()"><i class="pi pi-download"></i></a>
-    <a class="btn btn-danger" [routerLink]="['/pedidos']" routerLinkActive="router-link-active">Volver</a>
+    <a  class="btn btn-info" (click)="downloadPDF()"><i class="pi pi-download"></i></a>
+    <button class="btn btn-danger" [routerLink]="['/pedidos']" routerLinkActive="router-link-active">Volver</button>
   </div>
 
 

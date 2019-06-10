@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         console.log('decodedJwtData: ' + decodedJwtData.sub)
         //aqui le mandamos el token y el usuario para que lo guarde
         this.authService.saveuser(decodedJwtData.sub);
-        this.router.navigate(['inicio']);
+        this.router.navigate(['catalogo']);
         setTimeout(() => {
           window.location.reload();
         }, 0);

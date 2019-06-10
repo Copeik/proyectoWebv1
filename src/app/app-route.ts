@@ -43,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'inicio'
+    redirectTo: 'catalogo'
   }
 ];
 @NgModule({

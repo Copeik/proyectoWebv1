@@ -31,7 +31,7 @@
       
 </div>
 
-  <div class="col-lg-3 d-block d-lg-none">
+  <div class="col-lg-3 col-xs-12 d-block d-lg-none">
     <div class="dropdown">
       <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Categoria
@@ -41,7 +41,7 @@
         <a class="dropdown-item" *ngFor="let item of tiposlist" class="list-group-item"  (click)="getarticulosCategoria(item.codigo_t)"><strong>{{item.nombre}}</strong></a>
       </div>
     </div>
-    <div class="card w-50" *ngIf="creartipo">
+    <div class="card w-100" *ngIf="creartipo">
       <div class="card-body">
           <label for=""> Categoria: </label> 
           <div class="form-group input-group">

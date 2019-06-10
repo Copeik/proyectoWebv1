@@ -7,7 +7,7 @@
                     <div class="list-group list-group-flush">
                         <button class="list-group-item" (click)="changeCard('cliente')"><strong>Datos personales</strong></button>
                         <button class="list-group-item" (click)="changeCard('pedidos')"><strong>Pedidos</strong></button>
-                        <button class="list-group-item" (click)="changeCard('crud')"><strong>Crud</strong></button>
+                        <!-- <button class="list-group-item" (click)="changeCard('crud')"><strong>Crud</strong></button> -->
                     </div>
                 </div>
             </div>
@@ -16,12 +16,13 @@
             aria-label="Basic example">
             <button class="btn btn-secondary" (click)="changeCard('cliente')"><strong>Datos personales</strong></button>
             <button class="btn btn-secondary" (click)="changeCard('pedidos')"><strong>Pedidos</strong></button>
-            <button class="btn btn-secondary" (click)="changeCard('crud')"><strong>Crud</strong></button>
+            <!-- <button class="btn btn-secondary" (click)="changeCard('crud')"><strong>Crud</strong></button> -->
         </div>
         <div class="col-lg-10 col-md-12 card-body" *ngIf="card=='pedidos'">
             <div class="row">
                 <h2>{{titulo}}</h2>
-                <p-table #dt [columns]="cols" [value]="listapedido" [paginator]="true" [paginator]="true" [rows]="10">
+                <div class="table-responsive">
+                <p-table #dt [columns]="cols" [value]="listapedido" [paginator]="true" [responsive]="true" [rows]="10">
                     <ng-template pTemplate="caption">
                         <div style="text-align: right">
                             <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -60,6 +61,7 @@
                         </tr>
                     </ng-template>
                 </p-table>
+                </div>
             </div>
         </div>
         <div class="col-lg-10 col-md-12 card-body" *ngIf="card=='crud'">
