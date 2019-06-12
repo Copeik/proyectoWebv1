@@ -29,4 +29,7 @@ export class ArticulosService {
   deleteItem(cod_item){
     return this.http.post<any>(`http://localhost:8090/v1/articuloD?`,cod_item,{headers: this.header.append("Authorization","Bearer "+ this.token) });
   }
+  deleteTipo(cod_item){
+    return this.http.post<any>(`http://localhost:8090/v1/tipoD?`,cod_item,{headers: this.header.append("Authorization","Bearer "+ this.token) });
+  }
 }

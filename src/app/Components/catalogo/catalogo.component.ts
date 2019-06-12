@@ -87,8 +87,26 @@ export class CatalogoComponent implements OnInit {
   deleteArticulos(item,num){
      this.articulosService.deleteItem(item).subscribe(res =>{
        console.log(res)
-       this.items.splice(num, 1);
+       if(res){
+        this.items.splice(num, 1);
+        this.messageService.add({severity:'info', summary:'!Articulo eliminado!', detail:'El articulo ha sido eliminado'});
+       }else {
+      this.messageService.add({severity:'error', summary:'!Fallo!', detail:'El articulo no puede ser eliminado, ya que hay pedidos con dicho articulo'});
+       }
      });
+  }
+
+  deleteTipo(codtipo){
+    console.log("entro");
+    this.articulosService.deleteTipo(codtipo).subscribe(res =>{
+      console.log(res)
+      if(res){
+        this.messageService.add({severity:'info', summary:'!Categoria eliminada!', detail:'El tipo ha sido eliminado'});
+        this.getAllTipos();
+       }else {
+      this.messageService.add({severity:'error', summary:'!Fallo!', detail:'El tipo no puede ser eliminado, ya que hay articulos con dicha categoria'});
+       }
+    })
   }
 
   getarticulosCategoria(tipo){

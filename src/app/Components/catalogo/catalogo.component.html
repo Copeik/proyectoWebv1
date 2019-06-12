@@ -10,7 +10,7 @@
             <div class="card">
               <div class="list-group list-group-flush"> 
                 <button class="list-group-item"  (click)="getArticulos()"><strong>Todos los articulos</strong></button>
-                <button *ngFor="let item of tiposlist" class="list-group-item"  (click)="getarticulosCategoria(item.codigo_t)"><strong>{{item.nombre}}</strong></button>
+                <button *ngFor="let item of tiposlist" class="list-group-item"  (click)="getarticulosCategoria(item.codigo_t)"><strong>{{item.nombre}}   </strong> <a (click)="deleteTipo(item)" *ngIf="admin" style="float: right" class="btn btn-danger"><i class="pi pi-times"></i></a></button>
                 
               </div>
             </div>
@@ -65,7 +65,7 @@
                 <h5 class="card-title">{{item.nombre}}</h5>
                 <p class="card-text">{{item.descripcion}}</p>
                 <p><strong class="card-text">Precio:{{item.precio_art}}</strong></p>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Ver mas</button><button (click)="addToCar(item)"  class="btn btn-success ml-1">Añadir al carrito</button>
+                <button (click)="addToCar(item)"  class="btn btn-success ml-1">Añadir al carrito</button>
                 <button class="btn btn-danger ml-1" *ngIf="admin" (click)="deleteArticulos(item,i)">Eliminar articulo</button>
               </div>
             </div>

@@ -46,7 +46,9 @@ export class AuthenticationService {
   getuser(){
   var vi=sessionStorage.getItem("Usuario");
   if(vi==null || vi ==undefined){
-    this.router.navigate(['login']);
+    setTimeout(() => {
+      this.router.navigate(['login']);
+    }, 100);    
   }
   }
   getAdmin(){
