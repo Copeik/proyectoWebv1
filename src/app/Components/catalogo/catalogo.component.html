@@ -65,8 +65,8 @@
                 <h5 class="card-title">{{item.nombre}}</h5>
                 <p class="card-text">{{item.descripcion}}</p>
                 <p><strong class="card-text">Precio:{{item.precio_art}}</strong></p>
-                <button (click)="addToCar(item)"  class="btn btn-success ml-1">Añadir al carrito</button>
-                <button class="btn btn-danger ml-1" *ngIf="admin" (click)="deleteArticulos(item,i)">Eliminar articulo</button>
+                <button style="float: right" class="btn btn-danger ml-1" *ngIf="admin" (click)="deleteArticulos(item,i)"><i class="pi pi-times"></i></button>
+                <button style="float: right" (click)="addToCar(item)"  class="btn btn-success ml-1"><i class="pi pi-shopping-cart"></i><i class="pi pi-plus-circle"></i></button>
               </div>
             </div>
       </div>

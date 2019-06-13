@@ -56,7 +56,7 @@ export class PedidosComponent implements OnInit {
         },
         {
           label: 'Cancelar pedido', icon: 'pi pi-times', command: () => {
-            this.showDialog(algo);
+            this.cancelarPedido(algo);
           }
         }
       ];
@@ -119,6 +119,35 @@ export class PedidosComponent implements OnInit {
     this.codpedido = codpedido;
 
   }
+  cancelarPedido(algo){
+    this.codpedido = algo;
+    var a = "Cancelar pedido"
+    console.log(a)
+    if (a.trim() != "") {
+      console.log(a)
+      var ped;
+      ped = { codpedido: this.codpedido.codpedido }
+      var modificacion = new Modificaciones();
+      modificacion.codpedido = ped;
+      modificacion.modificado = false;
+
+      modificacion.textoModificacion = a;
+      console.log(modificacion)
+
+      this.pedidosService.deleteModificacion(modificacion).subscribe(res =>{
+        console.log(res);
+        if (res==true) {
+          this.pedidosService.postModificacion(modificacion).subscribe(res => {
+            console.log(res);
+            (<HTMLInputElement>document.getElementById("textarea")).value = ""
+          })
+        }
+        
+      })
+      
+    }
+  }
+
   textoEnsena() {
     var a = (<HTMLInputElement>document.getElementById("textarea")).value
     console.log(a)
