@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['catalogo']);
         setTimeout(() => {
           window.location.reload();
-        }, 0);
+        }, 10);
         
 
         

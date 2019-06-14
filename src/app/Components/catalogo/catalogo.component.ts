@@ -10,6 +10,7 @@ import { CarritoComponent } from 'src/app/common/carrito/carrito.component';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { Alert } from 'selenium-webdriver';
 import {MessageService} from 'primeng/api';
+import { Cliente } from 'src/app/model/Cliente';
 
 @Component({
   selector: 'app-catalogo',
@@ -20,7 +21,7 @@ export class CatalogoComponent implements OnInit {
   paginaActual=1;
   creartipo=false;
   admin:boolean = false;
-  user;
+  user:Cliente;
   items:any;
   page:number=0;
   pages:Array<number>;
